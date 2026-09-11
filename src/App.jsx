@@ -361,7 +361,7 @@ function App() {
         <div className="hero-content">
 
           <div className="hero-kicker">
-            🍜 NIT SRINAGAR'S CAMPUS KITCHEN
+            🍜 JONNIE'S CAMPUS KITCHEN
           </div>
 
           <h2>
