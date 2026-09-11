@@ -1702,3 +1702,22 @@ footer {
 .checkout-section textarea::placeholder {
   color: #777777 !important;
 }
+/* FIXED HEADER */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+/* WHITE CART */
+.cart-button,
+.cart-button * {
+  color: #ffffff !important;
+}
+
+/* SPACE FOR FIXED HEADER */
+body {
+  padding-top: 80px;
+}
