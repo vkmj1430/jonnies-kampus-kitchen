@@ -1716,8 +1716,3 @@ footer {
 .cart-button * {
   color: #ffffff !important;
 }
-
-/* SPACE FOR FIXED HEADER */
-body {
-  padding-top: 80px;
-}
