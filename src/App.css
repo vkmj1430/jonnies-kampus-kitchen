@@ -1878,15 +1878,15 @@ footer {
 
 /* Image larger but complete */
 .hero .hero-image {
-  width: 120% !important;
-  height: 140% !important;
+  width: 150% !important;
+  height: 180% !important;
   max-width: none !important;
 
   object-fit: contain !important;
   object-position: center center !important;
 
   transform: translate(-10%, -10%) !important;
-  opacity: 1 !important;
+  opacity: 0.6 !important;
   mix-blend-mode: multiply !important;
 }
 
