@@ -1609,3 +1609,50 @@ footer {
     padding: 17px;
   }
 }
+/* ===== FIX TEXT VISIBILITY ===== */
+
+.food-card,
+.food-card h3,
+.food-card p,
+.food-card span,
+.food-info,
+.food-description,
+.food-price {
+  color: #111111 !important;
+}
+
+.food-card h3 {
+  color: #111111 !important;
+}
+
+.food-description {
+  color: #555555 !important;
+}
+
+.food-price {
+  color: #d62828 !important;
+}
+
+/* Hero text */
+.hero-content,
+.hero-content h1,
+.hero-content h2,
+.hero-content p {
+  color: #111111;
+}
+
+/* About section */
+.about-content,
+.about-content h2,
+.about-content p {
+  color: #111111;
+}
+
+/* Checkout */
+.checkout-section,
+.checkout-section h2,
+.checkout-section h3,
+.checkout-section p,
+.checkout-section label {
+  color: #111111;
+}
