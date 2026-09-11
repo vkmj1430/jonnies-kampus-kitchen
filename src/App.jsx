@@ -352,20 +352,22 @@ function App() {
       </header>
 
 
-      {/* ================= HERO ================= */}
+      {      {/* ================= HERO ================= */}
 
       <section className="hero">
+
+        {/* LEFT CONTENT */}
 
         <div className="hero-content">
 
           <div className="hero-kicker">
-            JONNIE'S KAMPUS KITCHEN
+            🍜 NIT SRINAGAR'S CAMPUS KITCHEN
           </div>
 
           <h2>
-            Good Food.
+            Hungry?
             <br />
-            <span>Good Vibes.</span>
+            <span>We've Got You.</span>
           </h2>
 
           <p className="hero-description">
@@ -381,34 +383,56 @@ function App() {
             <span>→</span>
           </button>
 
+
+          {/* HERO FEATURES */}
+
           <div className="hero-features">
 
             <div className="feature">
-              <div className="feature-icon">👨‍🍳</div>
+
+              <div className="feature-icon">
+                👨‍🍳
+              </div>
+
               <div>
                 <strong>Fresh</strong>
                 <span>Ingredients</span>
               </div>
+
             </div>
+
 
             <div className="feature-line"></div>
 
+
             <div className="feature">
-              <div className="feature-icon">✓</div>
+
+              <div className="feature-icon">
+                ✓
+              </div>
+
               <div>
                 <strong>Hygienic</strong>
                 <span>& Safe</span>
               </div>
+
             </div>
+
 
             <div className="feature-line"></div>
 
+
             <div className="feature">
-              <div className="feature-icon">♡</div>
+
+              <div className="feature-icon">
+                ♡
+              </div>
+
               <div>
                 <strong>Made</strong>
                 <span>with Love</span>
               </div>
+
             </div>
 
           </div>
@@ -416,23 +440,31 @@ function App() {
         </div>
 
 
-        {/* HERO IMAGE */}
+        {/* RIGHT FOOD IMAGE */}
 
         <div className="hero-visual">
 
           <div className="hero-image-frame">
+
             <img
               src={heroImage}
-              alt="Jonnie's Kampus Kitchen chefs"
+              alt="Jonnie's Kampus Kitchen food"
               className="hero-image"
             />
+
           </div>
 
-          <div className="hero-sticker">
-            <span>Good Food</span>
-            <strong>Better Days!</strong>
-          </div>
+        </div>
 
+
+        {/* DECORATIVE ELEMENTS */}
+
+        <div className="hero-decoration hero-decoration-one">
+          ✦
+        </div>
+
+        <div className="hero-decoration hero-decoration-two">
+          •
         </div>
 
       </section>
