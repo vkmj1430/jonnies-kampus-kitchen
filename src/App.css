@@ -2644,7 +2644,7 @@ footer {
 
   .hero::before {
     filter: blur(12px);
-    opacity: 0.16;
+    opacity: 0.5;
   }
 
   .hero-kicker {
