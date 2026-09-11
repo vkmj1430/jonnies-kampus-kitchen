@@ -2627,7 +2627,7 @@ footer {
   color: #e5251c;
   font-size: 35px;
 
-  opacity: 0.55;
+  opacity: 0.75;
 }
 
 
@@ -2644,7 +2644,7 @@ footer {
 
   .hero::before {
     filter: blur(12px);
-    opacity: 0.5;
+    opacity: 0.2;
   }
 
   .hero-kicker {
