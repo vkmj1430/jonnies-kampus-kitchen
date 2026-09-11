@@ -256,6 +256,11 @@ function App() {
       return;
     }
 
+    if (!/^[0-9]{10}$/.test(customer.phone)) {
+      alert("Please enter a valid 10-digit mobile number.");
+      return;
+    }
+
     if (!customer.name || !customer.room || !customer.phone) {
       alert(
         "Please enter your name, room/location and phone number."
@@ -825,14 +830,14 @@ function App() {
 
             <input
               type="tel"
-              placeholder="Enter phone number"
+              placeholder="10-digit Mobile Number"
               value={customer.phone}
-              onChange={(e) =>
-                setCustomer({
-                  ...customer,
-                  phone: e.target.value,
-                })
-              }
+              maxLength={10}
+              inputMode="numeric"
+              onChange={(e) => {
+               const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+               setCustomer({ ...customer, phone: value });
+              }}
             />
 
 
