@@ -1846,7 +1846,7 @@ footer {
 }
 
 .header .nav-links a {
-  font-size: 21px !important;
+  font-size: 24px !important;
   font-weight: 700 !important;
   white-space: nowrap !important;
 }
@@ -1879,14 +1879,14 @@ footer {
 /* Image larger but complete */
 .hero .hero-image {
   width: 120% !important;
-  height: 120% !important;
+  height: 140% !important;
   max-width: none !important;
 
   object-fit: contain !important;
   object-position: center center !important;
 
   transform: translate(-10%, -10%) !important;
-  opacity: 0.30 !important;
+  opacity: 1 !important;
   mix-blend-mode: multiply !important;
 }
 
