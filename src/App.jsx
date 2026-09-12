@@ -2,6 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import heroImage from "./assets/hero.png";
 
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxfW-5PNghH-eXcHHE4ZXKvC0CY0PSp7Jq42TYJKrY-0-kjO9pSUCKcdcTuWuAEeRRx/exec";
+  
 const menuItems = [
   // SANDWICHES
   { id: 1, name: "Veg Sandwich", price: 100, category: "Sandwiches", emoji: "🥪" },
@@ -251,57 +254,96 @@ function App() {
   };
 
   const sendWhatsAppOrder = () => {
-    if (cart.length === 0) {
-      alert("Please add something to your cart first.");
-      return;
-    }
+  if (cart.length === 0) {
+    alert("Please add something to your cart first.");
+    return;
+  }
 
-    if (!/^[0-9]{10}$/.test(customer.phone)) {
-      alert("Please enter a valid 10-digit mobile number.");
-      return;
-    }
+  if (!/^[0-9]{10}$/.test(customer.phone)) {
+    alert("Please enter a valid 10-digit mobile number.");
+    return;
+  }
 
-    if (!customer.name || !customer.room || !customer.phone) {
-      alert(
-        "Please enter your name, room/location and phone number."
-      );
-      return;
-    }
+  if (!customer.name || !customer.room || !customer.phone) {
+    alert(
+      "Please enter your name, room/location and phone number."
+    );
+    return;
+  }
 
-    let message = `🍽️ *JONNIE'S KAMPUS KITCHEN*\n\n`;
+  // Prepare order items for Google Sheet
+  const orderItems = cart
+    .map(
+      (item) =>
+        `${item.name} × ${item.quantity} = ₹${
+          item.price * item.quantity
+        }`
+    )
+    .join(" | ");
 
-    message += `*NEW ORDER* 🛒\n`;
-    message += `━━━━━━━━━━━━━━━━━━\n\n`;
-
-    cart.forEach((item) => {
-      message += `• ${item.name} × ${item.quantity} = ₹${
-        item.price * item.quantity
-      }\n`;
-    });
-
-    message += `\n━━━━━━━━━━━━━━━━━━\n`;
-    message += `*TOTAL: ₹${cartTotal}*\n\n`;
-
-    message += `👤 *CUSTOMER DETAILS*\n`;
-    message += `Name: ${customer.name}\n`;
-    message += `Room / Location: ${customer.room}\n`;
-    message += `Phone: ${customer.phone}\n`;
-
-    if (customer.note) {
-      message += `Note: ${customer.note}\n`;
-    }
-
-    message += `\nPlease confirm my order. 🙏`;
-
-    const whatsappNumber = "919149456316";
-
-    const whatsappURL =
-      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-        message
-      )}`;
-
-    window.open(whatsappURL, "_blank");
+  // Data to save in Google Sheet
+  const orderData = {
+    orderItems: orderItems,
+    total: cartTotal,
+    name: customer.name,
+    room: customer.room,
+    phone: customer.phone,
+    note: customer.note || "",
+    paymentStatus: "Pending",
+    transactionId: "",
   };
+
+  // Send order to Google Sheet
+  const formData = new URLSearchParams();
+
+  formData.append(
+    "payload",
+    JSON.stringify(orderData)
+  );
+
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    body: formData,
+    mode: "no-cors",
+  }).catch((error) => {
+    console.error("Google Sheet error:", error);
+  });
+
+  // WhatsApp message
+  let message = `🍽️ *JONNIE'S KAMPUS KITCHEN*\n\n`;
+
+  message += `*NEW ORDER* 🛒\n`;
+  message += `━━━━━━━━━━━━━━━━━━\n\n`;
+
+  cart.forEach((item) => {
+    message += `• ${item.name} × ${item.quantity} = ₹${
+      item.price * item.quantity
+    }\n`;
+  });
+
+  message += `\n━━━━━━━━━━━━━━━━━━\n`;
+  message += `*TOTAL: ₹${cartTotal}*\n\n`;
+
+  message += `👤 *CUSTOMER DETAILS*\n`;
+  message += `Name: ${customer.name}\n`;
+  message += `Room / Location: ${customer.room}\n`;
+  message += `Phone: ${customer.phone}\n`;
+
+  if (customer.note) {
+    message += `Note: ${customer.note}\n`;
+  }
+
+  message += `\nPlease confirm my order. 🙏`;
+
+  const whatsappNumber = "919149456316";
+
+  const whatsappURL =
+    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+      message
+    )}`;
+
+  window.open(whatsappURL, "_blank");
+};
 
   return (
     <div className="app">
