@@ -1230,7 +1230,7 @@ function App() {
             <p>
               WhatsApp Orders
               <br />
-              9149456316
+              8855884272
             </p>
           </div>
 
