@@ -2749,15 +2749,16 @@ footer {
   display: block;
 }
 .hero-slogan {
-  margin: 4px auto 28px;
-  max-width: 800px;
+  margin: 6px auto 26px;
+  max-width: 850px;
   text-align: center;
 
-  font-size: 1.3rem;
-  font-weight: 800;
+  font-size: 1.25rem;
+  font-weight: 700;
   font-style: italic;
-  letter-spacing: 0.015em;
-  line-height: 1.35;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
 
-  color: #1b1b1b;
+  color: #222;
+  opacity: 0.9;
 }
