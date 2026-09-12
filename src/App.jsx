@@ -1,10 +1,11 @@
 import { useState } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import "./App.css";
 import heroImage from "./assets/hero.png";
 
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxfW-5PNghH-eXcHHE4ZXKvC0CY0PSp7Jq42TYJKrY-0-kjO9pSUCKcdcTuWuAEeRRx/exec";
-  
+
 const menuItems = [
   // SANDWICHES
   { id: 1, name: "Veg Sandwich", price: 100, category: "Sandwiches", emoji: "🥪" },
@@ -162,6 +163,8 @@ function App() {
     note: "",
   });
 
+  const [transactionId, setTransactionId] = useState("");
+
   const filteredItems = menuItems.filter((item) => {
     const categoryMatch =
       activeCategory === "All" || item.category === activeCategory;
@@ -182,9 +185,9 @@ function App() {
         return currentCart.map((cartItem) =>
           cartItem.id === item.id
             ? {
-                ...cartItem,
-                quantity: cartItem.quantity + 1,
-              }
+              ...cartItem,
+              quantity: cartItem.quantity + 1,
+            }
             : cartItem
         );
       }
@@ -204,9 +207,9 @@ function App() {
       currentCart.map((item) =>
         item.id === id
           ? {
-              ...item,
-              quantity: item.quantity + 1,
-            }
+            ...item,
+            quantity: item.quantity + 1,
+          }
           : item
       )
     );
@@ -218,9 +221,9 @@ function App() {
         .map((item) =>
           item.id === id
             ? {
-                ...item,
-                quantity: item.quantity - 1,
-              }
+              ...item,
+              quantity: item.quantity - 1,
+            }
             : item
         )
         .filter((item) => item.quantity > 0)
@@ -254,83 +257,94 @@ function App() {
   };
 
   const sendWhatsAppOrder = () => {
-  if (cart.length === 0) {
-    alert("Please add something to your cart first.");
-    return;
-  }
+    if (cart.length === 0) {
+      alert("Please add something to your cart first.");
+      return;
+    }
 
-  if (!/^[0-9]{10}$/.test(customer.phone)) {
-    alert("Please enter a valid 10-digit mobile number.");
-    return;
-  }
+    if (!/^[0-9]{10}$/.test(customer.phone)) {
+      alert("Please enter a valid 10-digit mobile number.");
+      return;
+    }
 
-  if (!customer.name || !customer.room || !customer.phone) {
-    alert(
-      "Please enter your name, room/location and phone number."
+    if (!customer.name || !customer.room || !customer.phone) {
+      alert(
+        "Please enter your name, room/location and phone number."
+      );
+      return;
+    }
+
+    // Prepare order items for Google Sheet
+    const orderItems = cart
+      .map(
+        (item) =>
+          `${item.name} × ${item.quantity} = ₹${item.price * item.quantity
+          }`
+      )
+      .join(" | ");
+
+    // Data to save in Google Sheet
+    const orderData = {
+      orderItems: orderItems,
+      total: cartTotal,
+      name: customer.name,
+      room: customer.room,
+      phone: customer.phone,
+      note: customer.note || "",
+      paymentStatus: transactionId.trim() ? "Paid" : "Pending",
+      transactionId: transactionId.trim(),
+    };
+
+    // Send order to Google Sheet
+    const formData = new URLSearchParams();
+
+    formData.append(
+      "payload",
+      JSON.stringify(orderData)
     );
-    return;
-  }
 
-  // Prepare order items for Google Sheet
-  const orderItems = cart
-    .map(
-      (item) =>
-        `${item.name} × ${item.quantity} = ₹${
-          item.price * item.quantity
-        }`
-    )
-    .join(" | ");
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      body: formData,
+      mode: "no-cors",
+    }).catch((error) => {
+      console.error("Google Sheet error:", error);
+    });
 
-  // Data to save in Google Sheet
-  const orderData = {
-    orderItems: orderItems,
-    total: cartTotal,
-    name: customer.name,
-    room: customer.room,
-    phone: customer.phone,
-    note: customer.note || "",
-    paymentStatus: "Pending",
-    transactionId: "",
-  };
+    // WhatsApp message
+    let message = `🍽️ *JONNIE'S KAMPUS KITCHEN*\n\n`;
 
-  // Send order to Google Sheet
-  const formData = new URLSearchParams();
+    message += `*NEW ORDER* 🛒\n`;
+    message += `━━━━━━━━━━━━━━━━━━\n\n`;
 
-  formData.append(
-    "payload",
-    JSON.stringify(orderData)
-  );
+    cart.forEach((item) => {
+      message += `• ${item.name} × ${item.quantity} = ₹${item.price * item.quantity
+        }\n`;
+    });
 
-  fetch(GOOGLE_SCRIPT_URL, {
-    method: "POST",
-    body: formData,
-    mode: "no-cors",
-  }).catch((error) => {
-    console.error("Google Sheet error:", error);
-  });
+    message += `\n━━━━━━━━━━━━━━━━━━\n`;
+    message += `*TOTAL: ₹${cartTotal}*\n\n`;
 
-  // WhatsApp message
-  let message = `🍽️ *JONNIE'S KAMPUS KITCHEN*\n\n`;
+    message += `👤 *CUSTOMER DETAILS*\n`;
+    message += `Name: ${customer.name}\n`;
+    message += `Room / Location: ${customer.room}\n`;
+    message += `Phone: ${customer.phone}\n`;
 
-  message += `*NEW ORDER* 🛒\n`;
-  message += `━━━━━━━━━━━━━━━━━━\n\n`;
+    if (customer.note) {
+      message += `Note: ${customer.note}\n`;
+    }
 
-  cart.forEach((item) => {
-    message += `• ${item.name} × ${item.quantity} = ₹${
-      item.price * item.quantity
-    }\n`;
-  });
+    message += `\n💳 *PAYMENT DETAILS*\n`;
 
-  message += `\n━━━━━━━━━━━━━━━━━━\n`;
-  message += `*TOTAL: ₹${cartTotal}*\n\n`;
+    if (transactionId.trim()) {
+      message += `Payment Status: PAID\n`;
+      message += `Transaction ID / UTR: ${transactionId.trim()}\n`;
+    } else {
+      message += `Payment Status: PENDING\n`;
+      message += `Transaction ID / UTR: Not provided\n`;
+    }
 
-  message += `👤 *CUSTOMER DETAILS*\n`;
-  message += `Name: ${customer.name}\n`;
-  message += `Room / Location: ${customer.room}\n`;
-  message += `Phone: ${customer.phone}\n`;
-
-  if (customer.note) {
-    message += `Note: ${customer.note}\n`;
+    message += `\nPlease confirm my order. 🙏`;
   }
 
   message += `\nPlease confirm my order. 🙏`;
@@ -345,496 +359,861 @@ function App() {
   window.open(whatsappURL, "_blank");
 };
 
-  return (
-    <div className="app">
+return (
+  <div className="app">
 
-      {/* ================= HEADER ================= */}
+    {/* ================= HEADER ================= */}
 
-      <header className="header">
+    <header className="header">
 
-        <a href="#" className="brand">
-          <div className="brand-logo">👨‍🍳</div>
+      <a href="#" className="brand">
+        <div className="brand-logo">👨‍🍳</div>
 
-          <div className="brand-text">
-            <h1>JONNIE'S</h1>
-            <span>KAMPUS KITCHEN</span>
-          </div>
-        </a>
+        <div className="brand-text">
+          <h1>JONNIE'S</h1>
+          <span>KAMPUS KITCHEN</span>
+        </div>
+      </a>
 
-        <nav className="nav">
-          <a href="#" className="active">Home</a>
+      <nav className="nav">
+        <a href="#" className="active">Home</a>
 
-          <button onClick={scrollToMenu}>
-            Menu
-          </button>
-
-          <a href="#about">
-            About
-          </a>
-
-          <a href="#contact">
-            Contact
-          </a>
-        </nav>
-
-        <button
-          className="cart-button"
-          onClick={() => setCartOpen(true)}
-        >
-          <span className="cart-icon">🛒</span>
-          <span className="cart-text">Cart</span>
-
-          {cartCount > 0 && (
-            <span className="cart-count">
-              {cartCount}
-            </span>
-          )}
+        <button onClick={scrollToMenu}>
+          Menu
         </button>
 
-      </header>
+        <a href="#about">
+          About
+        </a>
 
+        <a href="#contact">
+          Contact
+        </a>
+      </nav>
 
-      {/* ================= HERO ================= */}
-
-      <section className="hero">
-
-        {/* LEFT CONTENT */}
-
-        <div className="hero-content">
-
-          <div className="hero-kicker">
-            🍜 JONNIE'S CAMPUS KITCHEN
-          </div>
-
-          <h2>
-            Hungry?
-            <br />
-            <span>We've Got You.</span>
-          </h2>
-
-          <p className="hero-description">
-            Fresh, tasty & affordable food made for the
-            <strong> NIT Srinagar campus.</strong>
-          </p>
-
-          <button
-            className="hero-button"
-            onClick={scrollToMenu}
-          >
-            Explore Menu
-            <span>→</span>
-          </button>
-
-
-          {/* HERO FEATURES */}
-
-          <div className="hero-features">
-
-            <div className="feature">
-
-              <div className="feature-icon">
-                👨‍🍳
-              </div>
-
-              <div>
-                <strong>Fresh</strong>
-                <span>Ingredients</span>
-              </div>
-
-            </div>
-
-
-            <div className="feature-line"></div>
-
-
-            <div className="feature">
-
-              <div className="feature-icon">
-                ✓
-              </div>
-
-              <div>
-                <strong>Hygienic</strong>
-                <span>& Safe</span>
-              </div>
-
-            </div>
-
-
-            <div className="feature-line"></div>
-
-
-            <div className="feature">
-
-              <div className="feature-icon">
-                ♡
-              </div>
-
-              <div>
-                <strong>Made</strong>
-                <span>with Love</span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-
-        {/* RIGHT FOOD IMAGE */}
-
-        <div className="hero-visual">
-
-          <div className="hero-image-frame">
-
-            <img
-              src={heroImage}
-              alt="Jonnie's Kampus Kitchen food"
-              className="hero-image"
-            />
-
-          </div>
-
-        </div>
-
-
-        {/* DECORATIVE ELEMENTS */}
-
-        <div className="hero-decoration hero-decoration-one">
-          ✦
-        </div>
-
-        <div className="hero-decoration hero-decoration-two">
-          •
-        </div>
-
-      </section>
-
-
-      {/* ================= MENU ================= */}
-
-      <section
-        className="menu-section"
-        id="menu"
+      <button
+        className="cart-button"
+        onClick={() => setCartOpen(true)}
       >
+        <span className="cart-icon">🛒</span>
+        <span className="cart-text">Cart</span>
 
-        <div className="section-heading">
+        {cartCount > 0 && (
+          <span className="cart-count">
+            {cartCount}
+          </span>
+        )}
+      </button>
 
-          <div className="section-kicker">
-            WHAT'S COOKING?
+    </header>
+
+
+    {/* ================= HERO ================= */}
+
+    <section className="hero">
+
+      {/* LEFT CONTENT */}
+
+      <div className="hero-content">
+
+        <div className="hero-kicker">
+          🍜 JONNIE'S CAMPUS KITCHEN
+        </div>
+
+        <h2>
+          Hungry?
+          <br />
+          <span>We've Got You.</span>
+        </h2>
+
+        <p className="hero-description">
+          Fresh, tasty & affordable food made for the
+          <strong> NIT Srinagar campus.</strong>
+        </p>
+
+        <button
+          className="hero-button"
+          onClick={scrollToMenu}
+        >
+          Explore Menu
+          <span>→</span>
+        </button>
+
+
+        {/* HERO FEATURES */}
+
+        <div className="hero-features">
+
+          <div className="feature">
+
+            <div className="feature-icon">
+              👨‍🍳
+            </div>
+
+            <div>
+              <strong>Fresh</strong>
+              <span>Ingredients</span>
+            </div>
+
           </div>
 
-          <h2>
-            Our <span>Menu</span>
-          </h2>
 
-          <p>
-            Something delicious for every campus craving.
-          </p>
+          <div className="feature-line"></div>
+
+
+          <div className="feature">
+
+            <div className="feature-icon">
+              ✓
+            </div>
+
+            <div>
+              <strong>Hygienic</strong>
+              <span>& Safe</span>
+            </div>
+
+          </div>
+
+
+          <div className="feature-line"></div>
+
+
+          <div className="feature">
+
+            <div className="feature-icon">
+              ♡
+            </div>
+
+            <div>
+              <strong>Made</strong>
+              <span>with Love</span>
+            </div>
+
+          </div>
 
         </div>
 
+      </div>
 
-        {/* SEARCH */}
 
-        <div className="search-box">
+      {/* RIGHT FOOD IMAGE */}
 
-          <span>⌕</span>
+      <div className="hero-visual">
 
-          <input
-            type="text"
-            placeholder="Search for food..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+        <div className="hero-image-frame">
+
+          <img
+            src={heroImage}
+            alt="Jonnie's Kampus Kitchen food"
+            className="hero-image"
           />
 
-          {search && (
-            <button
-              className="clear-search"
-              onClick={() => setSearch("")}
-            >
-              ×
-            </button>
-          )}
-
         </div>
 
+      </div>
 
-        {/* CATEGORIES */}
 
-        <div className="categories">
+      {/* DECORATIVE ELEMENTS */}
 
-          {categories.map((category) => (
-            <button
-              key={category}
-              className={
-                activeCategory === category
-                  ? "category active"
-                  : "category"
-              }
-              onClick={() => setActiveCategory(category)}
+      <div className="hero-decoration hero-decoration-one">
+        ✦
+      </div>
+
+      <div className="hero-decoration hero-decoration-two">
+        •
+      </div>
+
+    </section>
+
+
+    {/* ================= MENU ================= */}
+
+    <section
+      className="menu-section"
+      id="menu"
+    >
+
+      <div className="section-heading">
+
+        <div className="section-kicker">
+          WHAT'S COOKING?
+        </div>
+
+        <h2>
+          Our <span>Menu</span>
+        </h2>
+
+        <p>
+          Something delicious for every campus craving.
+        </p>
+
+      </div>
+
+
+      {/* SEARCH */}
+
+      <div className="search-box">
+
+        <span>⌕</span>
+
+        <input
+          type="text"
+          placeholder="Search for food..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        {search && (
+          <button
+            className="clear-search"
+            onClick={() => setSearch("")}
+          >
+            ×
+          </button>
+        )}
+
+      </div>
+
+
+      {/* CATEGORIES */}
+
+      <div className="categories">
+
+        {categories.map((category) => (
+          <button
+            key={category}
+            className={
+              activeCategory === category
+                ? "category active"
+                : "category"
+            }
+            onClick={() => setActiveCategory(category)}
+          >
+            {category}
+          </button>
+        ))}
+
+      </div>
+
+
+      {/* FOOD GRID */}
+
+      {filteredItems.length > 0 ? (
+
+        <div className="food-grid">
+
+          {filteredItems.map((item) => (
+
+            <article
+              className="food-card"
+              key={item.id}
             >
-              {category}
-            </button>
+
+              <div className="food-image">
+
+                <div className="food-emoji">
+                  {item.emoji}
+                </div>
+
+                <div className="food-image-shape"></div>
+
+              </div>
+
+
+              <div className="food-info">
+
+                <div className="food-category">
+                  {item.category}
+                </div>
+
+                <h3>{item.name}</h3>
+
+                <p>
+                  {getDescription(item)}
+                </p>
+
+                <div className="food-bottom">
+
+                  <strong>
+                    {item.price === 0
+                      ? "MRP"
+                      : `₹${item.price}`}
+                  </strong>
+
+                  <button
+                    onClick={() => addToCart(item)}
+                  >
+                    <span>+</span>
+                    Add
+                  </button>
+
+                </div>
+
+              </div>
+
+            </article>
+
           ))}
 
         </div>
 
+      ) : (
 
-        {/* FOOD GRID */}
+        <div className="no-results">
 
-        {filteredItems.length > 0 ? (
+          <div>🍽️</div>
 
-          <div className="food-grid">
+          <h3>No food found</h3>
 
-            {filteredItems.map((item) => (
+          <p>
+            Try another search or category.
+          </p>
 
-              <article
-                className="food-card"
-                key={item.id}
-              >
-
-                <div className="food-image">
-
-                  <div className="food-emoji">
-                    {item.emoji}
-                  </div>
-
-                  <div className="food-image-shape"></div>
-
-                </div>
-
-
-                <div className="food-info">
-
-                  <div className="food-category">
-                    {item.category}
-                  </div>
-
-                  <h3>{item.name}</h3>
-
-                  <p>
-                    {getDescription(item)}
-                  </p>
-
-                  <div className="food-bottom">
-
-                    <strong>
-                      {item.price === 0
-                        ? "MRP"
-                        : `₹${item.price}`}
-                    </strong>
-
-                    <button
-                      onClick={() => addToCart(item)}
-                    >
-                      <span>+</span>
-                      Add
-                    </button>
-
-                  </div>
-
-                </div>
-
-              </article>
-
-            ))}
-
-          </div>
-
-        ) : (
-
-          <div className="no-results">
-
-            <div>🍽️</div>
-
-            <h3>No food found</h3>
-
-            <p>
-              Try another search or category.
-            </p>
-
-            <button
-              onClick={() => {
-                setSearch("");
-                setActiveCategory("All");
-              }}
-            >
-              Show All Items
-            </button>
-
-          </div>
-
-        )}
-
-      </section>
-
-
-      {/* ================= ABOUT ================= */}
-
-      <section
-        className="about-section"
-        id="about"
-      >
-
-        <div className="about-inner">
-
-          <div className="about-copy">
-
-            <div className="section-kicker">
-              MADE FOR THE CAMPUS
-            </div>
-
-            <h2>
-              Good food,
-              <br />
-              <span>good people.</span>
-            </h2>
-
-            <p>
-              Jonnie's Kampus Kitchen brings fresh,
-              tasty and affordable food right to the
-              NIT Srinagar community.
-            </p>
-
-            <p>
-              From quick snacks and momos to noodles,
-              Chinese favourites, pasta and Indian
-              classics — there's something for everyone.
-            </p>
-
-          </div>
-
-          <div className="about-card">
-
-            <div className="about-card-icon">
-              🍜
-            </div>
-
-            <h3>
-              Freshly Prepared
-            </h3>
-
-            <p>
-              Your favourite campus food,
-              prepared fresh and served with love.
-            </p>
-
-          </div>
-
-          <div className="about-card">
-
-            <div className="about-card-icon">
-              ❤️
-            </div>
-
-            <h3>
-              Made With Love
-            </h3>
-
-            <p>
-              Quality food, friendly vibes
-              and prices made for students.
-            </p>
-
-          </div>
+          <button
+            onClick={() => {
+              setSearch("");
+              setActiveCategory("All");
+            }}
+          >
+            Show All Items
+          </button>
 
         </div>
 
-      </section>
+      )}
+
+    </section>
 
 
-      {/* ================= CHECKOUT ================= */}
+    {/* ================= ABOUT ================= */}
 
-      <section
-        className="checkout-section"
-        id="checkout"
-      >
+    <section
+      className="about-section"
+      id="about"
+    >
 
-        <div className="section-heading">
+      <div className="about-inner">
+
+        <div className="about-copy">
 
           <div className="section-kicker">
-            READY TO ORDER?
+            MADE FOR THE CAMPUS
           </div>
 
           <h2>
-            Checkout
+            Good food,
+            <br />
+            <span>good people.</span>
           </h2>
 
           <p>
-            Add your details and send the order directly on WhatsApp.
+            Jonnie's Kampus Kitchen brings fresh,
+            tasty and affordable food right to the
+            NIT Srinagar community.
+          </p>
+
+          <p>
+            From quick snacks and momos to noodles,
+            Chinese favourites, pasta and Indian
+            classics — there's something for everyone.
           </p>
 
         </div>
 
+        <div className="about-card">
 
-        <div className="checkout-card">
+          <div className="about-card-icon">
+            🍜
+          </div>
 
-          {/* ORDER SUMMARY */}
+          <h3>
+            Freshly Prepared
+          </h3>
 
-          <div className="checkout-summary">
+          <p>
+            Your favourite campus food,
+            prepared fresh and served with love.
+          </p>
 
-            <div className="checkout-title">
-              <span>YOUR ORDER</span>
-              <h3>
-                Order Summary
-              </h3>
+        </div>
+
+        <div className="about-card">
+
+          <div className="about-card-icon">
+            ❤️
+          </div>
+
+          <h3>
+            Made With Love
+          </h3>
+
+          <p>
+            Quality food, friendly vibes
+            and prices made for students.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    {/* ================= CHECKOUT ================= */}
+
+    <section
+      className="checkout-section"
+      id="checkout"
+    >
+
+      <div className="section-heading">
+
+        <div className="section-kicker">
+          READY TO ORDER?
+        </div>
+
+        <h2>
+          Checkout
+        </h2>
+
+        <p>
+          Add your details and send the order directly on WhatsApp.
+        </p>
+
+      </div>
+
+
+      <div className="checkout-card">
+
+        {/* ORDER SUMMARY */}
+
+        <div className="checkout-summary">
+
+          <div className="checkout-title">
+            <span>YOUR ORDER</span>
+            <h3>
+              Order Summary
+            </h3>
+          </div>
+
+          {cart.length === 0 ? (
+
+            <div className="empty-summary">
+              <div>🛒</div>
+
+              <h4>
+                Your cart is empty
+              </h4>
+
+              <p>
+                Add some delicious food from the menu.
+              </p>
+
+              <button onClick={scrollToMenu}>
+                Explore Menu
+              </button>
             </div>
 
-            {cart.length === 0 ? (
+          ) : (
 
-              <div className="empty-summary">
-                <div>🛒</div>
+            <>
 
-                <h4>
-                  Your cart is empty
-                </h4>
+              <div className="summary-items">
 
-                <p>
-                  Add some delicious food from the menu.
-                </p>
+                {cart.map((item) => (
 
-                <button onClick={scrollToMenu}>
-                  Explore Menu
-                </button>
+                  <div
+                    className="summary-item"
+                    key={item.id}
+                  >
+
+                    <div>
+                      <strong>
+                        {item.name}
+                      </strong>
+
+                      <span>
+                        ₹{item.price} × {item.quantity}
+                      </span>
+                    </div>
+
+                    <b>
+                      ₹{item.price * item.quantity}
+                    </b>
+
+                  </div>
+
+                ))}
+
               </div>
 
-            ) : (
+              <div className="summary-total">
 
-              <>
+                <span>
+                  Total
+                </span>
 
-                <div className="summary-items">
+                <strong>
+                  ₹{cartTotal}
+                </strong>
 
-                  {cart.map((item) => (
+              </div>
 
-                    <div
-                      className="summary-item"
-                      key={item.id}
-                    >
+            </>
 
-                      <div>
-                        <strong>
-                          {item.name}
-                        </strong>
+          )}
+
+        </div>
+
+
+        {/* CUSTOMER FORM */}
+
+        <div className="checkout-form">
+
+          <div className="checkout-title">
+            <span>DELIVERY DETAILS</span>
+            <h3>
+              Your Details
+            </h3>
+          </div>
+
+
+          <label>
+            Your Name
+          </label>
+
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={customer.name}
+            onChange={(e) =>
+              setCustomer({
+                ...customer,
+                name: e.target.value,
+              })
+            }
+          />
+
+
+          <label>
+            Room / Location
+          </label>
+
+          <input
+            type="text"
+            placeholder="e.g. Hostel / Room No."
+            value={customer.room}
+            onChange={(e) =>
+              setCustomer({
+                ...customer,
+                room: e.target.value,
+              })
+            }
+          />
+
+
+          <label>
+            Phone Number
+          </label>
+
+          <input
+            type="tel"
+            placeholder="10-digit Mobile Number"
+            value={customer.phone}
+            maxLength={10}
+            inputMode="numeric"
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+              setCustomer({ ...customer, phone: value });
+            }}
+          />
+          <div className="payment-section">
+            <h3>💳 Pay for Your Order</h3>
+
+            <p>
+              Total Amount: <strong>₹{cartTotal}</strong>
+            </p>
+
+            <p>
+              UPI ID: <strong>vkmj1430@okhdfcbank</strong>
+            </p>
+
+            <div className="qr-container">
+              <QRCodeSVG
+                value={`upi://pay?pa=vkmj1430@okhdfcbank&pn=Jonnie%27s%20Kampus%20Kitchen&am=${cartTotal}&cu=INR`}
+                size={220}
+              />
+            </div>
+
+            <p className="payment-instruction">
+              Scan the QR code using any UPI app and complete the payment.
+            </p>
+
+            <input
+              type="text"
+              placeholder="Enter Transaction ID / UTR Number"
+              value={transactionId}
+              onChange={(e) => setTransactionId(e.target.value)}
+            />
+          </div>
+
+
+          <label>
+            Special Note
+          </label>
+
+          <textarea
+            placeholder="Any special instructions?"
+            value={customer.note}
+            onChange={(e) =>
+              setCustomer({
+                ...customer,
+                note: e.target.value,
+              })
+            }
+          ></textarea>
+
+
+          <button
+            className="whatsapp-button"
+            onClick={sendWhatsAppOrder}
+          >
+            <span>🟢</span>
+            Send Order on WhatsApp
+            <b>→</b>
+          </button>
+
+          <p className="whatsapp-note">
+            Your order will open in WhatsApp for confirmation.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    {/* ================= FOOTER ================= */}
+
+    <footer id="contact">
+
+      <div className="footer-main">
+
+        <div className="footer-brand">
+
+          <div className="footer-logo">
+            👨‍🍳
+          </div>
+
+          <div>
+            <h2>
+              JONNIE'S
+            </h2>
+
+            <span>
+              KAMPUS KITCHEN
+            </span>
+          </div>
+
+        </div>
+
+        <p className="footer-tagline">
+          Fresh, tasty & affordable food
+          for the NIT Srinagar campus.
+        </p>
+
+      </div>
+
+
+      <div className="footer-details">
+
+        <div>
+          <span>📍</span>
+
+          <p>
+            Opposite JK Bank,
+            <br />
+            Next to NIT Entrance Road,
+            <br />
+            Nigeen Bagh, Hazratbal
+          </p>
+        </div>
+
+        <div>
+          <span>📞</span>
+
+          <p>
+            855884472
+            <br />
+            9373449641
+          </p>
+        </div>
+
+        <div>
+          <span>💬</span>
+
+          <p>
+            WhatsApp Orders
+            <br />
+            9149456316
+          </p>
+        </div>
+
+      </div>
+
+
+      <div className="footer-bottom">
+
+        <span>
+          © 2026 Jonnie's Kampus Kitchen
+        </span>
+
+        <span>
+          Made with ❤️ for the campus
+        </span>
+
+      </div>
+
+    </footer>
+
+
+    {/* ================= CART DRAWER ================= */}
+
+    {cartOpen && (
+
+      <div
+        className="cart-overlay"
+        onClick={() => setCartOpen(false)}
+      >
+
+        <aside
+          className="cart-drawer"
+          onClick={(e) => e.stopPropagation()}
+        >
+
+          <div className="cart-header">
+
+            <div>
+              <span>
+                YOUR ORDER
+              </span>
+
+              <h2>
+                Cart
+              </h2>
+            </div>
+
+            <button
+              className="close-button"
+              onClick={() => setCartOpen(false)}
+            >
+              ×
+            </button>
+
+          </div>
+
+
+          {cart.length === 0 ? (
+
+            <div className="drawer-empty">
+
+              <div>
+                🛒
+              </div>
+
+              <h3>
+                Your cart is empty
+              </h3>
+
+              <p>
+                Add something delicious!
+              </p>
+
+              <button
+                onClick={() => {
+                  setCartOpen(false);
+                  scrollToMenu();
+                }}
+              >
+                Explore Menu
+              </button>
+
+            </div>
+
+          ) : (
+
+            <>
+
+              <div className="cart-items">
+
+                {cart.map((item) => (
+
+                  <div
+                    className="cart-item"
+                    key={item.id}
+                  >
+
+                    <div className="cart-item-image">
+                      {item.emoji}
+                    </div>
+
+                    <div className="cart-item-content">
+
+                      <h3>
+                        {item.name}
+                      </h3>
+
+                      <strong>
+                        ₹{item.price}
+                      </strong>
+
+                      <div className="quantity">
+
+                        <button
+                          onClick={() =>
+                            decreaseQuantity(item.id)
+                          }
+                        >
+                          −
+                        </button>
 
                         <span>
-                          ₹{item.price} × {item.quantity}
+                          {item.quantity}
                         </span>
-                      </div>
 
-                      <b>
-                        ₹{item.price * item.quantity}
-                      </b>
+                        <button
+                          onClick={() =>
+                            increaseQuantity(item.id)
+                          }
+                        >
+                          +
+                        </button>
+
+                      </div>
 
                     </div>
 
-                  ))}
+                  </div>
 
+                ))}
+
+              </div>
+
+
+              <div className="drawer-total">
+
+                <div>
+                  <span>
+                    Items
+                  </span>
+
+                  <strong>
+                    {cartCount}
+                  </strong>
                 </div>
 
-                <div className="summary-total">
-
+                <div>
                   <span>
                     Total
                   </span>
@@ -842,367 +1221,31 @@ function App() {
                   <strong>
                     ₹{cartTotal}
                   </strong>
-
                 </div>
 
-              </>
-
-            )}
-
-          </div>
-
-
-          {/* CUSTOMER FORM */}
-
-          <div className="checkout-form">
-
-            <div className="checkout-title">
-              <span>DELIVERY DETAILS</span>
-              <h3>
-                Your Details
-              </h3>
-            </div>
-
-
-            <label>
-              Your Name
-            </label>
-
-            <input
-              type="text"
-              placeholder="Enter your name"
-              value={customer.name}
-              onChange={(e) =>
-                setCustomer({
-                  ...customer,
-                  name: e.target.value,
-                })
-              }
-            />
-
-
-            <label>
-              Room / Location
-            </label>
-
-            <input
-              type="text"
-              placeholder="e.g. Hostel / Room No."
-              value={customer.room}
-              onChange={(e) =>
-                setCustomer({
-                  ...customer,
-                  room: e.target.value,
-                })
-              }
-            />
-
-
-            <label>
-              Phone Number
-            </label>
-
-            <input
-              type="tel"
-              placeholder="10-digit Mobile Number"
-              value={customer.phone}
-              maxLength={10}
-              inputMode="numeric"
-              onChange={(e) => {
-               const value = e.target.value.replace(/\D/g, "").slice(0, 10);
-               setCustomer({ ...customer, phone: value });
-              }}
-            />
-
-
-            <label>
-              Special Note
-            </label>
-
-            <textarea
-              placeholder="Any special instructions?"
-              value={customer.note}
-              onChange={(e) =>
-                setCustomer({
-                  ...customer,
-                  note: e.target.value,
-                })
-              }
-            ></textarea>
-
-
-            <button
-              className="whatsapp-button"
-              onClick={sendWhatsAppOrder}
-            >
-              <span>🟢</span>
-              Send Order on WhatsApp
-              <b>→</b>
-            </button>
-
-            <p className="whatsapp-note">
-              Your order will open in WhatsApp for confirmation.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* ================= FOOTER ================= */}
-
-      <footer id="contact">
-
-        <div className="footer-main">
-
-          <div className="footer-brand">
-
-            <div className="footer-logo">
-              👨‍🍳
-            </div>
-
-            <div>
-              <h2>
-                JONNIE'S
-              </h2>
-
-              <span>
-                KAMPUS KITCHEN
-              </span>
-            </div>
-
-          </div>
-
-          <p className="footer-tagline">
-            Fresh, tasty & affordable food
-            for the NIT Srinagar campus.
-          </p>
-
-        </div>
-
-
-        <div className="footer-details">
-
-          <div>
-            <span>📍</span>
-
-            <p>
-              Opposite JK Bank,
-              <br />
-              Next to NIT Entrance Road,
-              <br />
-              Nigeen Bagh, Hazratbal
-            </p>
-          </div>
-
-          <div>
-            <span>📞</span>
-
-            <p>
-              855884472
-              <br />
-              9373449641
-            </p>
-          </div>
-
-          <div>
-            <span>💬</span>
-
-            <p>
-              WhatsApp Orders
-              <br />
-              9149456316
-            </p>
-          </div>
-
-        </div>
-
-
-        <div className="footer-bottom">
-
-          <span>
-            © 2026 Jonnie's Kampus Kitchen
-          </span>
-
-          <span>
-            Made with ❤️ for the campus
-          </span>
-
-        </div>
-
-      </footer>
-
-
-      {/* ================= CART DRAWER ================= */}
-
-      {cartOpen && (
-
-        <div
-          className="cart-overlay"
-          onClick={() => setCartOpen(false)}
-        >
-
-          <aside
-            className="cart-drawer"
-            onClick={(e) => e.stopPropagation()}
-          >
-
-            <div className="cart-header">
-
-              <div>
-                <span>
-                  YOUR ORDER
-                </span>
-
-                <h2>
-                  Cart
-                </h2>
               </div>
+
 
               <button
-                className="close-button"
-                onClick={() => setCartOpen(false)}
+                className="drawer-checkout"
+                onClick={scrollToCheckout}
               >
-                ×
+                Proceed to Checkout
+                <span>→</span>
               </button>
 
-            </div>
+            </>
 
+          )}
 
-            {cart.length === 0 ? (
+        </aside>
 
-              <div className="drawer-empty">
+      </div>
 
-                <div>
-                  🛒
-                </div>
+    )}
 
-                <h3>
-                  Your cart is empty
-                </h3>
-
-                <p>
-                  Add something delicious!
-                </p>
-
-                <button
-                  onClick={() => {
-                    setCartOpen(false);
-                    scrollToMenu();
-                  }}
-                >
-                  Explore Menu
-                </button>
-
-              </div>
-
-            ) : (
-
-              <>
-
-                <div className="cart-items">
-
-                  {cart.map((item) => (
-
-                    <div
-                      className="cart-item"
-                      key={item.id}
-                    >
-
-                      <div className="cart-item-image">
-                        {item.emoji}
-                      </div>
-
-                      <div className="cart-item-content">
-
-                        <h3>
-                          {item.name}
-                        </h3>
-
-                        <strong>
-                          ₹{item.price}
-                        </strong>
-
-                        <div className="quantity">
-
-                          <button
-                            onClick={() =>
-                              decreaseQuantity(item.id)
-                            }
-                          >
-                            −
-                          </button>
-
-                          <span>
-                            {item.quantity}
-                          </span>
-
-                          <button
-                            onClick={() =>
-                              increaseQuantity(item.id)
-                            }
-                          >
-                            +
-                          </button>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  ))}
-
-                </div>
-
-
-                <div className="drawer-total">
-
-                  <div>
-                    <span>
-                      Items
-                    </span>
-
-                    <strong>
-                      {cartCount}
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>
-                      Total
-                    </span>
-
-                    <strong>
-                      ₹{cartTotal}
-                    </strong>
-                  </div>
-
-                </div>
-
-
-                <button
-                  className="drawer-checkout"
-                  onClick={scrollToCheckout}
-                >
-                  Proceed to Checkout
-                  <span>→</span>
-                </button>
-
-              </>
-
-            )}
-
-          </aside>
-
-        </div>
-
-      )}
-
-    </div>
-  );
+  </div>
+);
 }
 
 export default App;
