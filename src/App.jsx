@@ -23,7 +23,7 @@ const menuItems = [
   { id: 11, name: "Peri Peri Crispy Corn", price: 120, category: "Pakodas / Snacks", emoji: "🌽" },
   { id: 12, name: "Peri Peri Fries", price: 120, category: "Pakodas / Snacks", emoji: "🍟" },
   { id: 13, name: "Paneer Pakoda", price: 160, category: "Pakodas / Snacks", emoji: "🧀" },
-  { id: 84, name: "Black Pepper Paneer", price: 170, category: "Pakodas", emoji: "🧀" },
+  { id: 84, name: "Black Pepper Paneer", price: 170, category: "Pakodas / Snacks", emoji: "🧀" },
 
   // BURGERS
   { id: 14, name: "Veg Burger", price: 120, category: "Burgers", emoji: "🍔" },
