@@ -2734,3 +2734,17 @@ footer {
   object-fit: cover;
   display: block;
 }
+/* Remove old decorative food image overlays */
+.food-image::before,
+.food-image::after,
+.food-image-shape {
+  display: none !important;
+  content: none !important;
+}
+
+.food-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
