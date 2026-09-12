@@ -2749,16 +2749,56 @@ footer {
   display: block;
 }
 .hero-slogan {
-  margin: 6px auto 26px;
-  max-width: 850px;
-  text-align: center;
+  position: relative;
+  width: fit-content;
+  max-width: 90%;
+  margin: 14px auto 30px;
 
-  font-size: 1.25rem;
-  font-weight: 700;
-  font-style: italic;
-  letter-spacing: 0.02em;
+  padding: 9px 42px;
+
+  font-size: 1rem;
+  font-weight: 800;
+  font-style: normal;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
   line-height: 1.4;
 
-  color: #222;
-  opacity: 0.9;
+  color: #ed241c;
+}
+
+/* Left & right decorative lines */
+.hero-slogan::before,
+.hero-slogan::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 2px;
+  background: #ed241c;
+  transform: translateY(-50%);
+}
+
+.hero-slogan::before {
+  left: 0;
+}
+
+.hero-slogan::after {
+  right: 0;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .hero-slogan {
+    max-width: 95%;
+    padding: 8px 30px;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    margin: 10px auto 24px;
+  }
+
+  .hero-slogan::before,
+  .hero-slogan::after {
+    width: 18px;
+  }
 }
