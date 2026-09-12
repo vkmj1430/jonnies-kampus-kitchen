@@ -25,7 +25,7 @@ const menuItems = [
   { id: 13, name: "Paneer Pakoda", price: 160, category: "Pakodas / Snacks", emoji: "🧀" },
 
   // BURGERS
-  { id: 14, name: "Veg Burger", price: 120, category: "Burgers", emoji: "🍔" },
+  { id: 14, name: "Veg Burger", price: 120, category: "Burgers", emoji: "🍔", image: "/food/veg-burger.jpg" },
   { id: 15, name: "Veg Cheese Burger", price: 130, category: "Burgers", emoji: "🍔" },
   { id: 16, name: "Paneer Burger", price: 140, category: "Burgers", emoji: "🍔" },
   { id: 17, name: "Paneer Cheese Burger", price: 150, category: "Burgers", emoji: "🍔" },
@@ -773,9 +773,17 @@ function App() {
 
                 <div className="food-image">
 
-                  <div className="food-emoji">
-                    {item.emoji}
-                  </div>
+                  {item.image ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="food-card-image"
+                    />
+                  ) : (
+                    <div className="food-emoji">
+                      {item.emoji}
+                    </div>
+                  )}
 
                   <div className="food-image-shape"></div>
 
