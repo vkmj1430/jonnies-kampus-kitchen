@@ -345,9 +345,6 @@ function App() {
     }
 
     message += `\nPlease confirm my order. 🙏`;
-  }
-
-  message += `\nPlease confirm my order. 🙏`;
 
   const whatsappNumber = "919149456316";
 
