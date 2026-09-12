@@ -133,21 +133,186 @@ const categories = [
 
 function getDescription(item) {
   const descriptions = {
-    "Sandwiches": "Freshly prepared with delicious fillings and sauces.",
-    "Pakodas / Snacks": "Crispy, hot and perfect for a quick campus bite.",
-    "Burgers": "Loaded, juicy and freshly assembled for you.",
-    "Wraps N Spring Rolls": "Freshly prepared rolls packed with tasty fillings.",
-    "Momo's": "Soft, flavourful momos served hot and fresh.",
-    "Italian Pasta": "Creamy and flavourful pasta made fresh.",
-    "Soups": "Warm, comforting and freshly prepared soup.",
-    "Noodles / Rice": "Hot, wok-tossed and full of flavour.",
-    "Chinese Starters": "Indo-Chinese favourites prepared fresh.",
-    "Roti": "Freshly cooked tawa roti, served hot.",
-    "Paratha": "Fresh, filling and cooked on the tawa.",
-    "Tea / Beverages": "Refreshing drinks and beverages for your day.",
+    "Veg Sandwich":
+      "Fresh veggies, creamy spread and soft toasted bread.",
+    "Corn & Cheese Sandwich":
+      "Sweet corn and melted cheese layered in soft toasted bread.",
+    "Coleslaw Sandwich":
+      "Crunchy creamy coleslaw packed between freshly toasted bread.",
+    "Paneer Tikka Sandwich":
+      "Smoky paneer tikka with fresh veggies and delicious sauces.",
+    "Chicken Sandwich":
+      "Tender chicken, fresh veggies and creamy sauce in toasted bread.",
+    "Chicken Coleslaw Sandwich":
+      "Juicy chicken combined with creamy crunchy coleslaw.",
+    "Chicken Tikka Sandwich":
+      "Flavorful chicken tikka with fresh veggies and creamy sauces.",
+
+    "Pyaz Pakoda":
+      "Crispy onion fritters, golden fried and served hot.",
+    "Mix Veg Pakoda":
+      "Crispy mix vegetable fritters with delicious Indian spices.",
+    "French Fries":
+      "Golden, crispy fries perfect for a quick campus snack.",
+    "Peri Peri Crispy Corn":
+      "Crunchy crispy corn tossed in spicy peri peri seasoning.",
+    "Peri Peri Fries":
+      "Crispy golden fries loaded with spicy peri peri flavour.",
+    "Paneer Pakoda":
+      "Soft paneer coated in spiced batter and fried until golden.",
+
+    "Veg Burger":
+      "Crispy veg patty, fresh veggies and creamy sauce in a soft bun.",
+    "Veg Cheese Burger":
+      "Classic veg burger loaded with a delicious layer of melted cheese.",
+    "Paneer Burger":
+      "Flavorful paneer patty with fresh veggies and creamy sauces.",
+    "Paneer Cheese Burger":
+      "Juicy paneer patty topped with melted cheese and fresh veggies.",
+    "Double Tikki Burger":
+      "Two crispy tikki patties stacked with fresh veggies and sauces.",
+    "Chicken Zinger Burger":
+      "Crispy chicken fillet, fresh veggies and creamy sauce in a soft bun.",
+    "Chicken Zinger Double Tikki":
+      "Double the chicken goodness with crispy patties and rich sauces.",
+
+    "Veg Spring Roll":
+      "Crispy spring roll filled with seasoned fresh vegetables.",
+    "Egg Roll":
+      "Soft wrap layered with seasoned egg and fresh tasty fillings.",
+    "Paneer Spring Roll":
+      "Crispy roll packed with flavourful paneer and fresh vegetables.",
+    "Veg Mac Roll":
+      "Creamy macaroni and fresh fillings wrapped in a delicious roll.",
+    "Paneer Tikka Roll":
+      "Smoky paneer tikka wrapped with fresh veggies and tasty sauces.",
+    "Chicken Tikka Roll":
+      "Juicy chicken tikka wrapped with fresh veggies and flavorful sauces.",
+    "Chicken Spring Roll":
+      "Crispy spring roll packed with delicious seasoned chicken filling.",
+    "Chicken Mac Roll":
+      "Creamy macaroni and tender chicken wrapped in a tasty roll.",
+
+    "Veg Momo's (Steamed)":
+      "Soft steamed momos filled with delicious seasoned vegetables.",
+    "Veg Momo's (Fried)":
+      "Crispy fried momos filled with flavorful vegetable stuffing.",
+    "Paneer Momo's (Steamed)":
+      "Soft steamed momos filled with creamy, flavorful paneer.",
+    "Veg Momo's (Kurkure)":
+      "Crunchy Kurkure-style coating with delicious veg momo filling.",
+    "Veg Chilly Momo's":
+      "Crispy veg momos tossed with spicy chilly sauce and veggies.",
+    "Paneer Chilly Momo's":
+      "Paneer momos tossed in spicy chilly sauce with fresh vegetables.",
+    "Paneer Momo's (Kurkure)":
+      "Crunchy Kurkure coating outside with flavorful paneer momos inside.",
+    "Chicken Momo's (Steamed)":
+      "Soft steamed momos filled with juicy seasoned chicken.",
+    "Chicken Momo's (Fried)":
+      "Crispy fried momos with a juicy and flavorful chicken filling.",
+    "Chicken Momo's (Kurkure)":
+      "Crunchy Kurkure coating outside with juicy chicken momos inside.",
+    "Chicken Momo's (Chilly)":
+      "Juicy chicken momos tossed with spicy chilly sauce and vegetables.",
+
+    "White Sauce Penne Pasta":
+      "Creamy white sauce, tender penne and rich cheesy flavours.",
+    "Red Sauce Penne Pasta":
+      "Penne pasta tossed in a rich, tangy and flavorful red sauce.",
+    "White Sauce Chicken Pasta":
+      "Creamy white sauce pasta loaded with tender pieces of chicken.",
+
+    "Veg Hot & Sour Soup":
+      "A warm, tangy and spicy soup loaded with fresh vegetables.",
+    "Veg Manchow Soup":
+      "Spicy vegetable soup topped with crispy noodles for extra crunch.",
+    "Cream of Tomato Soup":
+      "Smooth and comforting tomato soup with a rich creamy texture.",
+    "Chicken Hot & Sour Soup":
+      "Spicy and tangy soup with tender chicken and fresh vegetables.",
+    "Chicken Manchow Soup":
+      "Flavorful chicken soup topped with crispy noodles and fresh veggies.",
+
+    "Veg Noodles":
+      "Hot wok-tossed noodles loaded with fresh crunchy vegetables.",
+    "Hakka Noodles":
+      "Classic wok-tossed noodles with vegetables and Indo-Chinese flavours.",
+    "Chilly Garlic Noodles":
+      "Wok-tossed noodles infused with spicy chilly and aromatic garlic.",
+    "Egg Noodles":
+      "Wok-tossed noodles combined with seasoned egg and fresh vegetables.",
+    "Chicken Noodles":
+      "Hot noodles tossed with tender chicken and flavorful vegetables.",
+    "Steamed Rice":
+      "Light and fluffy steamed rice, perfect with your favourite curry.",
+    "Veg Fried Rice":
+      "Wok-fried rice tossed with fresh vegetables and aromatic seasoning.",
+    "Schezwan Fried Rice":
+      "Spicy Schezwan-style fried rice loaded with bold flavours.",
+    "Egg Fried Rice":
+      "Wok-fried rice with seasoned egg and delicious Indo-Chinese flavours.",
+    "Paneer Fried Rice":
+      "Flavorful fried rice tossed with soft paneer and fresh vegetables.",
+
+    "Veg Manchurian (Dry)":
+      "Crispy vegetable balls tossed in a flavorful Manchurian sauce.",
+    "Veg Manchurian (Gravy)":
+      "Soft vegetable Manchurian balls served in rich spicy gravy.",
+    "Crispy Veg":
+      "Crispy mixed vegetables tossed with delicious Indo-Chinese seasoning.",
+    "Honey Chilly Potato":
+      "Crispy potato strips tossed in sweet, spicy honey chilly sauce.",
+    "Paneer Manchurian (Dry)":
+      "Crispy paneer tossed in flavorful Manchurian sauce and spices.",
+    "Paneer Manchurian (Gravy)":
+      "Soft paneer Manchurian served in a rich and spicy gravy.",
+    "Chilly Mushroom":
+      "Tender mushrooms tossed with chilly, onions and fresh peppers.",
+    "Chilly Paneer":
+      "Soft paneer tossed with crunchy peppers in a spicy chilly sauce.",
+    "Chicken Manchurian (Dry)":
+      "Crispy chicken tossed in bold and flavorful Manchurian sauce.",
+    "Chicken Manchurian (Gravy)":
+      "Tender chicken pieces served in rich spicy Manchurian gravy.",
+    "Black Pepper Chicken":
+      "Tender chicken tossed with aromatic black pepper and fresh vegetables.",
+    "Chilly Chicken":
+      "Tender chicken tossed with crunchy vegetables in spicy chilly sauce.",
+    "Chicken 65":
+      "Crispy, spicy and flavorful chicken bites served hot and fresh.",
+
+    "Plain Tawa Roti":
+      "Freshly cooked soft tawa roti, served hot.",
+    "Butter Tawa Roti":
+      "Fresh tawa roti finished with a delicious layer of butter.",
+
+    "Plain Paratha":
+      "Golden layered paratha cooked fresh on the tawa.",
+    "Aloo Paratha":
+      "Golden tawa paratha stuffed with delicious spiced potatoes.",
+    "Aloo Pyaz Paratha":
+      "Crispy paratha stuffed with spiced potato and onion filling.",
+    "Paneer Paratha":
+      "Soft golden paratha filled with flavorful seasoned paneer.",
+    "Paneer Onion Paratha":
+      "Delicious paneer and onion stuffing inside a crispy golden paratha.",
+
+    "Special Masala Tea":
+      "Hot aromatic tea brewed with special Indian spices.",
+    "Lemon Tea":
+      "Refreshing hot tea with a bright and zesty lemon flavour.",
+    "Iced Tea":
+      "Chilled and refreshing tea, perfect for a quick campus break.",
+    "Hot Coffee":
+      "Freshly prepared hot coffee with a rich comforting flavour.",
+    "Cold Coffee":
+      "Chilled creamy coffee, smooth and refreshing.",
+    "Soft Drink / Mineral Water":
+      "A refreshing drink or chilled mineral water for your meal.",
   };
 
-  return descriptions[item.category] || "Freshly prepared with love.";
+  return descriptions[item.name] || "Freshly prepared with love.";
 }
 
 function App() {
@@ -346,871 +511,506 @@ function App() {
 
     message += `\nPlease confirm my order. 🙏`;
 
-  const whatsappNumber = "919149456316";
+    const whatsappNumber = "919149456316";
 
-  const whatsappURL =
-    `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-      message
-    )}`;
+    const whatsappURL =
+      `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
+        message
+      )}`;
 
-  window.open(whatsappURL, "_blank");
-};
+    window.open(whatsappURL, "_blank");
+  };
 
-return (
-  <div className="app">
+  return (
+    <div className="app">
 
-    {/* ================= HEADER ================= */}
+      {/* ================= HEADER ================= */}
 
-    <header className="header">
+      <header className="header">
 
-      <a href="#" className="brand">
-        <div className="brand-logo">👨‍🍳</div>
+        <a href="#" className="brand">
+          <div className="brand-logo">👨‍🍳</div>
 
-        <div className="brand-text">
-          <h1>JONNIE'S</h1>
-          <span>KAMPUS KITCHEN</span>
-        </div>
-      </a>
-
-      <nav className="nav">
-        <a href="#" className="active">Home</a>
-
-        <button onClick={scrollToMenu}>
-          Menu
-        </button>
-
-        <a href="#about">
-          About
+          <div className="brand-text">
+            <h1>JONNIE'S</h1>
+            <span>KAMPUS KITCHEN</span>
+          </div>
         </a>
 
-        <a href="#contact">
-          Contact
-        </a>
-      </nav>
+        <nav className="nav">
+          <a href="#" className="active">Home</a>
 
-      <button
-        className="cart-button"
-        onClick={() => setCartOpen(true)}
-      >
-        <span className="cart-icon">🛒</span>
-        <span className="cart-text">Cart</span>
+          <button onClick={scrollToMenu}>
+            Menu
+          </button>
 
-        {cartCount > 0 && (
-          <span className="cart-count">
-            {cartCount}
-          </span>
-        )}
-      </button>
+          <a href="#about">
+            About
+          </a>
 
-    </header>
-
-
-    {/* ================= HERO ================= */}
-
-    <section className="hero">
-
-      {/* LEFT CONTENT */}
-
-      <div className="hero-content">
-
-        <div className="hero-kicker">
-          🍜 JONNIE'S CAMPUS KITCHEN
-        </div>
-
-        <h2>
-          Hungry?
-          <br />
-          <span>We've Got You.</span>
-        </h2>
-
-        <p className="hero-description">
-          Fresh, tasty & affordable food made for the
-          <strong> NIT Srinagar campus.</strong>
-        </p>
+          <a href="#contact">
+            Contact
+          </a>
+        </nav>
 
         <button
-          className="hero-button"
-          onClick={scrollToMenu}
+          className="cart-button"
+          onClick={() => setCartOpen(true)}
         >
-          Explore Menu
-          <span>→</span>
+          <span className="cart-icon">🛒</span>
+          <span className="cart-text">Cart</span>
+
+          {cartCount > 0 && (
+            <span className="cart-count">
+              {cartCount}
+            </span>
+          )}
         </button>
 
+      </header>
 
-        {/* HERO FEATURES */}
 
-        <div className="hero-features">
+      {/* ================= HERO ================= */}
 
-          <div className="feature">
+      <section className="hero">
 
-            <div className="feature-icon">
-              👨‍🍳
-            </div>
+        {/* LEFT CONTENT */}
 
-            <div>
-              <strong>Fresh</strong>
-              <span>Ingredients</span>
-            </div>
+        <div className="hero-content">
 
-          </div>
-
-
-          <div className="feature-line"></div>
-
-
-          <div className="feature">
-
-            <div className="feature-icon">
-              ✓
-            </div>
-
-            <div>
-              <strong>Hygienic</strong>
-              <span>& Safe</span>
-            </div>
-
-          </div>
-
-
-          <div className="feature-line"></div>
-
-
-          <div className="feature">
-
-            <div className="feature-icon">
-              ♡
-            </div>
-
-            <div>
-              <strong>Made</strong>
-              <span>with Love</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      {/* RIGHT FOOD IMAGE */}
-
-      <div className="hero-visual">
-
-        <div className="hero-image-frame">
-
-          <img
-            src={heroImage}
-            alt="Jonnie's Kampus Kitchen food"
-            className="hero-image"
-          />
-
-        </div>
-
-      </div>
-
-
-      {/* DECORATIVE ELEMENTS */}
-
-      <div className="hero-decoration hero-decoration-one">
-        ✦
-      </div>
-
-      <div className="hero-decoration hero-decoration-two">
-        •
-      </div>
-
-    </section>
-
-
-    {/* ================= MENU ================= */}
-
-    <section
-      className="menu-section"
-      id="menu"
-    >
-
-      <div className="section-heading">
-
-        <div className="section-kicker">
-          WHAT'S COOKING?
-        </div>
-
-        <h2>
-          Our <span>Menu</span>
-        </h2>
-
-        <p>
-          Something delicious for every campus craving.
-        </p>
-
-      </div>
-
-
-      {/* SEARCH */}
-
-      <div className="search-box">
-
-        <span>⌕</span>
-
-        <input
-          type="text"
-          placeholder="Search for food..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
-        {search && (
-          <button
-            className="clear-search"
-            onClick={() => setSearch("")}
-          >
-            ×
-          </button>
-        )}
-
-      </div>
-
-
-      {/* CATEGORIES */}
-
-      <div className="categories">
-
-        {categories.map((category) => (
-          <button
-            key={category}
-            className={
-              activeCategory === category
-                ? "category active"
-                : "category"
-            }
-            onClick={() => setActiveCategory(category)}
-          >
-            {category}
-          </button>
-        ))}
-
-      </div>
-
-
-      {/* FOOD GRID */}
-
-      {filteredItems.length > 0 ? (
-
-        <div className="food-grid">
-
-          {filteredItems.map((item) => (
-
-            <article
-              className="food-card"
-              key={item.id}
-            >
-
-              <div className="food-image">
-
-                <div className="food-emoji">
-                  {item.emoji}
-                </div>
-
-                <div className="food-image-shape"></div>
-
-              </div>
-
-
-              <div className="food-info">
-
-                <div className="food-category">
-                  {item.category}
-                </div>
-
-                <h3>{item.name}</h3>
-
-                <p>
-                  {getDescription(item)}
-                </p>
-
-                <div className="food-bottom">
-
-                  <strong>
-                    {item.price === 0
-                      ? "MRP"
-                      : `₹${item.price}`}
-                  </strong>
-
-                  <button
-                    onClick={() => addToCart(item)}
-                  >
-                    <span>+</span>
-                    Add
-                  </button>
-
-                </div>
-
-              </div>
-
-            </article>
-
-          ))}
-
-        </div>
-
-      ) : (
-
-        <div className="no-results">
-
-          <div>🍽️</div>
-
-          <h3>No food found</h3>
-
-          <p>
-            Try another search or category.
-          </p>
-
-          <button
-            onClick={() => {
-              setSearch("");
-              setActiveCategory("All");
-            }}
-          >
-            Show All Items
-          </button>
-
-        </div>
-
-      )}
-
-    </section>
-
-
-    {/* ================= ABOUT ================= */}
-
-    <section
-      className="about-section"
-      id="about"
-    >
-
-      <div className="about-inner">
-
-        <div className="about-copy">
-
-          <div className="section-kicker">
-            MADE FOR THE CAMPUS
+          <div className="hero-kicker">
+            🍜 JONNIE'S CAMPUS KITCHEN
           </div>
 
           <h2>
-            Good food,
+            Hungry?
             <br />
-            <span>good people.</span>
+            <span>We've Got You.</span>
+          </h2>
+
+          <p className="hero-description">
+            Fresh, tasty & affordable food made for the
+            <strong> NIT Srinagar campus.</strong>
+          </p>
+
+          <button
+            className="hero-button"
+            onClick={scrollToMenu}
+          >
+            Explore Menu
+            <span>→</span>
+          </button>
+
+
+          {/* HERO FEATURES */}
+
+          <div className="hero-features">
+
+            <div className="feature">
+
+              <div className="feature-icon">
+                👨‍🍳
+              </div>
+
+              <div>
+                <strong>Fresh</strong>
+                <span>Ingredients</span>
+              </div>
+
+            </div>
+
+
+            <div className="feature-line"></div>
+
+
+            <div className="feature">
+
+              <div className="feature-icon">
+                ✓
+              </div>
+
+              <div>
+                <strong>Hygienic</strong>
+                <span>& Safe</span>
+              </div>
+
+            </div>
+
+
+            <div className="feature-line"></div>
+
+
+            <div className="feature">
+
+              <div className="feature-icon">
+                ♡
+              </div>
+
+              <div>
+                <strong>Made</strong>
+                <span>with Love</span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        {/* RIGHT FOOD IMAGE */}
+
+        <div className="hero-visual">
+
+          <div className="hero-image-frame">
+
+            <img
+              src={heroImage}
+              alt="Jonnie's Kampus Kitchen food"
+              className="hero-image"
+            />
+
+          </div>
+
+        </div>
+
+
+        {/* DECORATIVE ELEMENTS */}
+
+        <div className="hero-decoration hero-decoration-one">
+          ✦
+        </div>
+
+        <div className="hero-decoration hero-decoration-two">
+          •
+        </div>
+
+      </section>
+
+
+      {/* ================= MENU ================= */}
+
+      <section
+        className="menu-section"
+        id="menu"
+      >
+
+        <div className="section-heading">
+
+          <div className="section-kicker">
+            WHAT'S COOKING?
+          </div>
+
+          <h2>
+            Our <span>Menu</span>
           </h2>
 
           <p>
-            Jonnie's Kampus Kitchen brings fresh,
-            tasty and affordable food right to the
-            NIT Srinagar community.
-          </p>
-
-          <p>
-            From quick snacks and momos to noodles,
-            Chinese favourites, pasta and Indian
-            classics — there's something for everyone.
+            Something delicious for every campus craving.
           </p>
 
         </div>
 
-        <div className="about-card">
 
-          <div className="about-card-icon">
-            🍜
-          </div>
+        {/* SEARCH */}
 
-          <h3>
-            Freshly Prepared
-          </h3>
+        <div className="search-box">
 
-          <p>
-            Your favourite campus food,
-            prepared fresh and served with love.
-          </p>
+          <span>⌕</span>
 
-        </div>
+          <input
+            type="text"
+            placeholder="Search for food..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
 
-        <div className="about-card">
-
-          <div className="about-card-icon">
-            ❤️
-          </div>
-
-          <h3>
-            Made With Love
-          </h3>
-
-          <p>
-            Quality food, friendly vibes
-            and prices made for students.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    {/* ================= CHECKOUT ================= */}
-
-    <section
-      className="checkout-section"
-      id="checkout"
-    >
-
-      <div className="section-heading">
-
-        <div className="section-kicker">
-          READY TO ORDER?
-        </div>
-
-        <h2>
-          Checkout
-        </h2>
-
-        <p>
-          Add your details and send the order directly on WhatsApp.
-        </p>
-
-      </div>
-
-
-      <div className="checkout-card">
-
-        {/* ORDER SUMMARY */}
-
-        <div className="checkout-summary">
-
-          <div className="checkout-title">
-            <span>YOUR ORDER</span>
-            <h3>
-              Order Summary
-            </h3>
-          </div>
-
-          {cart.length === 0 ? (
-
-            <div className="empty-summary">
-              <div>🛒</div>
-
-              <h4>
-                Your cart is empty
-              </h4>
-
-              <p>
-                Add some delicious food from the menu.
-              </p>
-
-              <button onClick={scrollToMenu}>
-                Explore Menu
-              </button>
-            </div>
-
-          ) : (
-
-            <>
-
-              <div className="summary-items">
-
-                {cart.map((item) => (
-
-                  <div
-                    className="summary-item"
-                    key={item.id}
-                  >
-
-                    <div>
-                      <strong>
-                        {item.name}
-                      </strong>
-
-                      <span>
-                        ₹{item.price} × {item.quantity}
-                      </span>
-                    </div>
-
-                    <b>
-                      ₹{item.price * item.quantity}
-                    </b>
-
-                  </div>
-
-                ))}
-
-              </div>
-
-              <div className="summary-total">
-
-                <span>
-                  Total
-                </span>
-
-                <strong>
-                  ₹{cartTotal}
-                </strong>
-
-              </div>
-
-            </>
-
+          {search && (
+            <button
+              className="clear-search"
+              onClick={() => setSearch("")}
+            >
+              ×
+            </button>
           )}
 
         </div>
 
 
-        {/* CUSTOMER FORM */}
+        {/* CATEGORIES */}
 
-        <div className="checkout-form">
+        <div className="categories">
 
-          <div className="checkout-title">
-            <span>DELIVERY DETAILS</span>
-            <h3>
-              Your Details
-            </h3>
+          {categories.map((category) => (
+            <button
+              key={category}
+              className={
+                activeCategory === category
+                  ? "category active"
+                  : "category"
+              }
+              onClick={() => setActiveCategory(category)}
+            >
+              {category}
+            </button>
+          ))}
+
+        </div>
+
+
+        {/* FOOD GRID */}
+
+        {filteredItems.length > 0 ? (
+
+          <div className="food-grid">
+
+            {filteredItems.map((item) => (
+
+              <article
+                className="food-card"
+                key={item.id}
+              >
+
+                <div className="food-image">
+
+                  <div className="food-emoji">
+                    {item.emoji}
+                  </div>
+
+                  <div className="food-image-shape"></div>
+
+                </div>
+
+
+                <div className="food-info">
+
+                  <div className="food-category">
+                    {item.category}
+                  </div>
+
+                  <h3>{item.name}</h3>
+
+                  <p>
+                    {getDescription(item)}
+                  </p>
+
+                  <div className="food-bottom">
+
+                    <strong>
+                      {item.price === 0
+                        ? "MRP"
+                        : `₹${item.price}`}
+                    </strong>
+
+                    <button
+                      onClick={() => addToCart(item)}
+                    >
+                      <span>+</span>
+                      Add
+                    </button>
+
+                  </div>
+
+                </div>
+
+              </article>
+
+            ))}
+
           </div>
 
+        ) : (
 
-          <label>
-            Your Name
-          </label>
+          <div className="no-results">
 
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={customer.name}
-            onChange={(e) =>
-              setCustomer({
-                ...customer,
-                name: e.target.value,
-              })
-            }
-          />
+            <div>🍽️</div>
 
-
-          <label>
-            Room / Location
-          </label>
-
-          <input
-            type="text"
-            placeholder="e.g. Hostel / Room No."
-            value={customer.room}
-            onChange={(e) =>
-              setCustomer({
-                ...customer,
-                room: e.target.value,
-              })
-            }
-          />
-
-
-          <label>
-            Phone Number
-          </label>
-
-          <input
-            type="tel"
-            placeholder="10-digit Mobile Number"
-            value={customer.phone}
-            maxLength={10}
-            inputMode="numeric"
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, "").slice(0, 10);
-              setCustomer({ ...customer, phone: value });
-            }}
-          />
-          <div className="payment-section">
-            <h3>💳 Pay for Your Order</h3>
+            <h3>No food found</h3>
 
             <p>
-              Total Amount: <strong>₹{cartTotal}</strong>
+              Try another search or category.
             </p>
-
-            <p>
-              UPI ID: <strong>vkmj1430@okhdfcbank</strong>
-            </p>
-
-            <div className="qr-container">
-              <QRCodeSVG
-                value={`upi://pay?pa=vkmj1430@okhdfcbank&pn=Jonnie%27s%20Kampus%20Kitchen&am=${cartTotal}&cu=INR`}
-                size={220}
-              />
-            </div>
-
-            <p className="payment-instruction">
-              Scan the QR code using any UPI app and complete the payment.
-            </p>
-
-            <input
-              type="text"
-              placeholder="Enter Transaction ID / UTR Number"
-              value={transactionId}
-              onChange={(e) => setTransactionId(e.target.value)}
-            />
-          </div>
-
-
-          <label>
-            Special Note
-          </label>
-
-          <textarea
-            placeholder="Any special instructions?"
-            value={customer.note}
-            onChange={(e) =>
-              setCustomer({
-                ...customer,
-                note: e.target.value,
-              })
-            }
-          ></textarea>
-
-
-          <button
-            className="whatsapp-button"
-            onClick={sendWhatsAppOrder}
-          >
-            <span>🟢</span>
-            Send Order on WhatsApp
-            <b>→</b>
-          </button>
-
-          <p className="whatsapp-note">
-            Your order will open in WhatsApp for confirmation.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    {/* ================= FOOTER ================= */}
-
-    <footer id="contact">
-
-      <div className="footer-main">
-
-        <div className="footer-brand">
-
-          <div className="footer-logo">
-            👨‍🍳
-          </div>
-
-          <div>
-            <h2>
-              JONNIE'S
-            </h2>
-
-            <span>
-              KAMPUS KITCHEN
-            </span>
-          </div>
-
-        </div>
-
-        <p className="footer-tagline">
-          Fresh, tasty & affordable food
-          for the NIT Srinagar campus.
-        </p>
-
-      </div>
-
-
-      <div className="footer-details">
-
-        <div>
-          <span>📍</span>
-
-          <p>
-            Opposite JK Bank,
-            <br />
-            Next to NIT Entrance Road,
-            <br />
-            Nigeen Bagh, Hazratbal
-          </p>
-        </div>
-
-        <div>
-          <span>📞</span>
-
-          <p>
-            855884472
-            <br />
-            9373449641
-          </p>
-        </div>
-
-        <div>
-          <span>💬</span>
-
-          <p>
-            WhatsApp Orders
-            <br />
-            9149456316
-          </p>
-        </div>
-
-      </div>
-
-
-      <div className="footer-bottom">
-
-        <span>
-          © 2026 Jonnie's Kampus Kitchen
-        </span>
-
-        <span>
-          Made with ❤️ for the campus
-        </span>
-
-      </div>
-
-    </footer>
-
-
-    {/* ================= CART DRAWER ================= */}
-
-    {cartOpen && (
-
-      <div
-        className="cart-overlay"
-        onClick={() => setCartOpen(false)}
-      >
-
-        <aside
-          className="cart-drawer"
-          onClick={(e) => e.stopPropagation()}
-        >
-
-          <div className="cart-header">
-
-            <div>
-              <span>
-                YOUR ORDER
-              </span>
-
-              <h2>
-                Cart
-              </h2>
-            </div>
 
             <button
-              className="close-button"
-              onClick={() => setCartOpen(false)}
+              onClick={() => {
+                setSearch("");
+                setActiveCategory("All");
+              }}
             >
-              ×
+              Show All Items
             </button>
 
           </div>
 
+        )}
 
-          {cart.length === 0 ? (
+      </section>
 
-            <div className="drawer-empty">
 
-              <div>
-                🛒
-              </div>
+      {/* ================= ABOUT ================= */}
 
-              <h3>
-                Your cart is empty
-              </h3>
+      <section
+        className="about-section"
+        id="about"
+      >
 
-              <p>
-                Add something delicious!
-              </p>
+        <div className="about-inner">
 
-              <button
-                onClick={() => {
-                  setCartOpen(false);
-                  scrollToMenu();
-                }}
-              >
-                Explore Menu
-              </button>
+          <div className="about-copy">
 
+            <div className="section-kicker">
+              MADE FOR THE CAMPUS
             </div>
 
-          ) : (
+            <h2>
+              Good food,
+              <br />
+              <span>good people.</span>
+            </h2>
 
-            <>
+            <p>
+              Jonnie's Kampus Kitchen brings fresh,
+              tasty and affordable food right to the
+              NIT Srinagar community.
+            </p>
 
-              <div className="cart-items">
+            <p>
+              From quick snacks and momos to noodles,
+              Chinese favourites, pasta and Indian
+              classics — there's something for everyone.
+            </p>
 
-                {cart.map((item) => (
+          </div>
 
-                  <div
-                    className="cart-item"
-                    key={item.id}
-                  >
+          <div className="about-card">
 
-                    <div className="cart-item-image">
-                      {item.emoji}
-                    </div>
+            <div className="about-card-icon">
+              🍜
+            </div>
 
-                    <div className="cart-item-content">
+            <h3>
+              Freshly Prepared
+            </h3>
 
-                      <h3>
-                        {item.name}
-                      </h3>
+            <p>
+              Your favourite campus food,
+              prepared fresh and served with love.
+            </p>
 
-                      <strong>
-                        ₹{item.price}
-                      </strong>
+          </div>
 
-                      <div className="quantity">
+          <div className="about-card">
 
-                        <button
-                          onClick={() =>
-                            decreaseQuantity(item.id)
-                          }
-                        >
-                          −
-                        </button>
+            <div className="about-card-icon">
+              ❤️
+            </div>
 
-                        <span>
-                          {item.quantity}
-                        </span>
+            <h3>
+              Made With Love
+            </h3>
 
-                        <button
-                          onClick={() =>
-                            increaseQuantity(item.id)
-                          }
-                        >
-                          +
-                        </button>
+            <p>
+              Quality food, friendly vibes
+              and prices made for students.
+            </p>
 
-                      </div>
+          </div>
 
-                    </div>
+        </div>
 
-                  </div>
+      </section>
 
-                ))}
 
+      {/* ================= CHECKOUT ================= */}
+
+      <section
+        className="checkout-section"
+        id="checkout"
+      >
+
+        <div className="section-heading">
+
+          <div className="section-kicker">
+            READY TO ORDER?
+          </div>
+
+          <h2>
+            Checkout
+          </h2>
+
+          <p>
+            Add your details and send the order directly on WhatsApp.
+          </p>
+
+        </div>
+
+
+        <div className="checkout-card">
+
+          {/* ORDER SUMMARY */}
+
+          <div className="checkout-summary">
+
+            <div className="checkout-title">
+              <span>YOUR ORDER</span>
+              <h3>
+                Order Summary
+              </h3>
+            </div>
+
+            {cart.length === 0 ? (
+
+              <div className="empty-summary">
+                <div>🛒</div>
+
+                <h4>
+                  Your cart is empty
+                </h4>
+
+                <p>
+                  Add some delicious food from the menu.
+                </p>
+
+                <button onClick={scrollToMenu}>
+                  Explore Menu
+                </button>
               </div>
 
+            ) : (
 
-              <div className="drawer-total">
+              <>
 
-                <div>
-                  <span>
-                    Items
-                  </span>
+                <div className="summary-items">
 
-                  <strong>
-                    {cartCount}
-                  </strong>
+                  {cart.map((item) => (
+
+                    <div
+                      className="summary-item"
+                      key={item.id}
+                    >
+
+                      <div>
+                        <strong>
+                          {item.name}
+                        </strong>
+
+                        <span>
+                          ₹{item.price} × {item.quantity}
+                        </span>
+                      </div>
+
+                      <b>
+                        ₹{item.price * item.quantity}
+                      </b>
+
+                    </div>
+
+                  ))}
+
                 </div>
 
-                <div>
+                <div className="summary-total">
+
                   <span>
                     Total
                   </span>
@@ -1218,31 +1018,396 @@ return (
                   <strong>
                     ₹{cartTotal}
                   </strong>
+
                 </div>
+
+              </>
+
+            )}
+
+          </div>
+
+
+          {/* CUSTOMER FORM */}
+
+          <div className="checkout-form">
+
+            <div className="checkout-title">
+              <span>DELIVERY DETAILS</span>
+              <h3>
+                Your Details
+              </h3>
+            </div>
+
+
+            <label>
+              Your Name
+            </label>
+
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={customer.name}
+              onChange={(e) =>
+                setCustomer({
+                  ...customer,
+                  name: e.target.value,
+                })
+              }
+            />
+
+
+            <label>
+              Room / Location
+            </label>
+
+            <input
+              type="text"
+              placeholder="e.g. Hostel / Room No."
+              value={customer.room}
+              onChange={(e) =>
+                setCustomer({
+                  ...customer,
+                  room: e.target.value,
+                })
+              }
+            />
+
+
+            <label>
+              Phone Number
+            </label>
+
+            <input
+              type="tel"
+              placeholder="10-digit Mobile Number"
+              value={customer.phone}
+              maxLength={10}
+              inputMode="numeric"
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                setCustomer({ ...customer, phone: value });
+              }}
+            />
+            <div className="payment-section">
+              <h3>💳 Pay for Your Order</h3>
+
+              <p>
+                Total Amount: <strong>₹{cartTotal}</strong>
+              </p>
+
+              <p>
+                UPI ID: <strong>vkmj1430@okhdfcbank</strong>
+              </p>
+
+              <div className="qr-container">
+                <QRCodeSVG
+                  value={`upi://pay?pa=vkmj1430@okhdfcbank&pn=Jonnie%27s%20Kampus%20Kitchen&am=${cartTotal}&cu=INR`}
+                  size={220}
+                />
+              </div>
+
+              <p className="payment-instruction">
+                Scan the QR code using any UPI app and complete the payment.
+              </p>
+
+              <input
+                type="text"
+                placeholder="Enter Transaction ID / UTR Number"
+                value={transactionId}
+                onChange={(e) => setTransactionId(e.target.value)}
+              />
+            </div>
+
+
+            <label>
+              Special Note
+            </label>
+
+            <textarea
+              placeholder="Any special instructions?"
+              value={customer.note}
+              onChange={(e) =>
+                setCustomer({
+                  ...customer,
+                  note: e.target.value,
+                })
+              }
+            ></textarea>
+
+
+            <button
+              className="whatsapp-button"
+              onClick={sendWhatsAppOrder}
+            >
+              <span>🟢</span>
+              Send Order on WhatsApp
+              <b>→</b>
+            </button>
+
+            <p className="whatsapp-note">
+              Your order will open in WhatsApp for confirmation.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      {/* ================= FOOTER ================= */}
+
+      <footer id="contact">
+
+        <div className="footer-main">
+
+          <div className="footer-brand">
+
+            <div className="footer-logo">
+              👨‍🍳
+            </div>
+
+            <div>
+              <h2>
+                JONNIE'S
+              </h2>
+
+              <span>
+                KAMPUS KITCHEN
+              </span>
+            </div>
+
+          </div>
+
+          <p className="footer-tagline">
+            Fresh, tasty & affordable food
+            for the NIT Srinagar campus.
+          </p>
+
+        </div>
+
+
+        <div className="footer-details">
+
+          <div>
+            <span>📍</span>
+
+            <p>
+              Opposite JK Bank,
+              <br />
+              Next to NIT Entrance Road,
+              <br />
+              Nigeen Bagh, Hazratbal
+            </p>
+          </div>
+
+          <div>
+            <span>📞</span>
+
+            <p>
+              855884472
+              <br />
+              9373449641
+            </p>
+          </div>
+
+          <div>
+            <span>💬</span>
+
+            <p>
+              WhatsApp Orders
+              <br />
+              9149456316
+            </p>
+          </div>
+
+        </div>
+
+
+        <div className="footer-bottom">
+
+          <span>
+            © 2026 Jonnie's Kampus Kitchen
+          </span>
+
+          <span>
+            Made with ❤️ for the campus
+          </span>
+
+        </div>
+
+      </footer>
+
+
+      {/* ================= CART DRAWER ================= */}
+
+      {cartOpen && (
+
+        <div
+          className="cart-overlay"
+          onClick={() => setCartOpen(false)}
+        >
+
+          <aside
+            className="cart-drawer"
+            onClick={(e) => e.stopPropagation()}
+          >
+
+            <div className="cart-header">
+
+              <div>
+                <span>
+                  YOUR ORDER
+                </span>
+
+                <h2>
+                  Cart
+                </h2>
+              </div>
+
+              <button
+                className="close-button"
+                onClick={() => setCartOpen(false)}
+              >
+                ×
+              </button>
+
+            </div>
+
+
+            {cart.length === 0 ? (
+
+              <div className="drawer-empty">
+
+                <div>
+                  🛒
+                </div>
+
+                <h3>
+                  Your cart is empty
+                </h3>
+
+                <p>
+                  Add something delicious!
+                </p>
+
+                <button
+                  onClick={() => {
+                    setCartOpen(false);
+                    scrollToMenu();
+                  }}
+                >
+                  Explore Menu
+                </button>
 
               </div>
 
+            ) : (
 
-              <button
-                className="drawer-checkout"
-                onClick={scrollToCheckout}
-              >
-                Proceed to Checkout
-                <span>→</span>
-              </button>
+              <>
 
-            </>
+                <div className="cart-items">
 
-          )}
+                  {cart.map((item) => (
 
-        </aside>
+                    <div
+                      className="cart-item"
+                      key={item.id}
+                    >
 
-      </div>
+                      <div className="cart-item-image">
+                        {item.emoji}
+                      </div>
 
-    )}
+                      <div className="cart-item-content">
 
-  </div>
-);
+                        <h3>
+                          {item.name}
+                        </h3>
+
+                        <strong>
+                          ₹{item.price}
+                        </strong>
+
+                        <div className="quantity">
+
+                          <button
+                            onClick={() =>
+                              decreaseQuantity(item.id)
+                            }
+                          >
+                            −
+                          </button>
+
+                          <span>
+                            {item.quantity}
+                          </span>
+
+                          <button
+                            onClick={() =>
+                              increaseQuantity(item.id)
+                            }
+                          >
+                            +
+                          </button>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  ))}
+
+                </div>
+
+
+                <div className="drawer-total">
+
+                  <div>
+                    <span>
+                      Items
+                    </span>
+
+                    <strong>
+                      {cartCount}
+                    </strong>
+                  </div>
+
+                  <div>
+                    <span>
+                      Total
+                    </span>
+
+                    <strong>
+                      ₹{cartTotal}
+                    </strong>
+                  </div>
+
+                </div>
+
+
+                <button
+                  className="drawer-checkout"
+                  onClick={scrollToCheckout}
+                >
+                  Proceed to Checkout
+                  <span>→</span>
+                </button>
+
+              </>
+
+            )}
+
+          </aside>
+
+        </div>
+
+      )}
+
+    </div>
+  );
 }
 
 export default App;
