@@ -511,7 +511,7 @@ function App() {
 
     message += `\nPlease confirm my order. 🙏`;
 
-    const whatsappNumber = "919149456316";
+    const whatsappNumber = "918855884272";
 
     const whatsappURL =
       `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
@@ -587,6 +587,10 @@ function App() {
             <br />
             <span>We've Got You.</span>
           </h2>
+
+          <p className="hero-slogan">
+            The mess that doesn't mess with the taste.
+          </p>
 
           <p className="hero-description">
             Fresh, tasty & affordable food made for the
@@ -1105,12 +1109,12 @@ function App() {
               </p>
 
               <p>
-                UPI ID: <strong>vkmj1430@okhdfcbank</strong>
+                UPI ID: <strong>amitapnaidu378-1@okaxis</strong>
               </p>
 
               <div className="qr-container">
                 <QRCodeSVG
-                  value={`upi://pay?pa=vkmj1430@okhdfcbank&pn=Jonnie%27s%20Kampus%20Kitchen&am=${cartTotal}&cu=INR`}
+                  value={`upi://pay?pa=amitapnaidu378-1@okaxis&pn=Jonnie%27s%20Kampus%20Kitchen&am=${cartTotal}&cu=INR`}
                   size={220}
                 />
               </div>
