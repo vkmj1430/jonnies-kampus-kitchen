@@ -23,6 +23,7 @@ const menuItems = [
   { id: 11, name: "Peri Peri Crispy Corn", price: 120, category: "Pakodas / Snacks", emoji: "🌽" },
   { id: 12, name: "Peri Peri Fries", price: 120, category: "Pakodas / Snacks", emoji: "🍟" },
   { id: 13, name: "Paneer Pakoda", price: 160, category: "Pakodas / Snacks", emoji: "🧀" },
+  { id: 84, name: "Black Pepper Paneer", price: 170, category: "Pakodas", emoji: "🧀" },
 
   // BURGERS
   { id: 14, name: "Veg Burger", price: 120, category: "Burgers", emoji: "🍔" },
@@ -160,6 +161,8 @@ function getDescription(item) {
       "Crispy golden fries loaded with spicy peri peri flavour.",
     "Paneer Pakoda":
       "Soft paneer coated in spiced batter and fried until golden.",
+    "Black Pepper Paneer":
+      "Crispy paneer tossed with aromatic black pepper and flavorful spices.",
 
     "Veg Burger":
       "Crispy veg patty, fresh veggies and creamy sauce in a soft bun.",
