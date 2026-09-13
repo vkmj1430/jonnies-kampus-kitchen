@@ -7,6 +7,16 @@ const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxfW-5PNghH-eXcHHE4ZXKvC0CY0PSp7Jq42TYJKrY-0-kjO9pSUCKcdcTuWuAEeRRx/exec";
 
 const menuItems = [
+  // BREAKFAST & MORNING BITES
+  { id: 85, name: "Poha", price: 50, category: "Breakfast & Morning Bites", emoji: "🍚" },
+  { id: 86, name: "Bread Omelette", price: 60, category: "Breakfast & Morning Bites", emoji: "🍳" },
+  { id: 87, name: "Upma", price: 60, category: "Breakfast & Morning Bites", emoji: "🥣" },
+  { id: 88, name: "Idli", price: 60, category: "Breakfast & Morning Bites", emoji: "🍚" },
+  { id: 89, name: "Vada", price: 70, category: "Breakfast & Morning Bites", emoji: "🍩" },
+  { id: 90, name: "Plain Dosa", price: 90, category: "Breakfast & Morning Bites", emoji: "🥞" },
+  { id: 91, name: "Butter Plain Dosa", price: 100, category: "Breakfast & Morning Bites", emoji: "🥞" },
+  { id: 92, name: "Butter Masala Dosa", price: 120, category: "Breakfast & Morning Bites", emoji: "🥞" },
+
   // SANDWICHES
   { id: 1, name: "Veg Sandwich", price: 100, category: "Sandwiches", emoji: "🥪" },
   { id: 2, name: "Corn & Cheese Sandwich", price: 110, category: "Sandwiches", emoji: "🥪" },
@@ -96,6 +106,16 @@ const menuItems = [
   { id: 69, name: "Chilly Chicken", price: 200, category: "Chinese Starters", emoji: "🍗" },
   { id: 70, name: "Chicken 65", price: 220, category: "Chinese Starters", emoji: "🍗" },
 
+  // INDIAN MAINS & KAMPUS MEALS
+  { id: 93, name: "Paneer Butter Masala", price: 200, category: "Indian Mains & Kampus Meals", emoji: "🍛" },
+  { id: 94, name: "Kadhai Paneer", price: 230, category: "Indian Mains & Kampus Meals", emoji: "🍛" },
+  { id: 95, name: "Paneer Bhurji", price: 180, category: "Indian Mains & Kampus Meals", emoji: "🍳" },
+  { id: 96, name: "Egg Bhurji", price: 140, category: "Indian Mains & Kampus Meals", emoji: "🍳" },
+  { id: 97, name: "Mix Veg Curry", price: 150, category: "Indian Mains & Kampus Meals", emoji: "🥘" },
+  { id: 98, name: "Rajma Rice Combo", price: 130, category: "Indian Mains & Kampus Meals", emoji: "🍛" },
+  { id: 99, name: "Veg Biriyani", price: 180, category: "Indian Mains & Kampus Meals", emoji: "🍚" },
+  { id: 100, name: "Chicken Biriyani", price: 250, category: "Indian Mains & Kampus Meals", emoji: "🍗" },
+
   // ROTI
   { id: 71, name: "Plain Tawa Roti", price: 15, category: "Roti", emoji: "🫓" },
   { id: 72, name: "Butter Tawa Roti", price: 20, category: "Roti", emoji: "🫓" },
@@ -118,6 +138,7 @@ const menuItems = [
 
 const categories = [
   "All",
+  "Breakfast & Morning Bites",
   "Sandwiches",
   "Pakodas / Snacks",
   "Burgers",
@@ -127,6 +148,7 @@ const categories = [
   "Soups",
   "Noodles / Rice",
   "Chinese Starters",
+  "Indian Mains & Kampus Meals",
   "Roti",
   "Paratha",
   "Tea / Beverages",
@@ -134,6 +156,23 @@ const categories = [
 
 function getDescription(item) {
   const descriptions = {
+    "Poha":
+      "Flattened rice tempered with spices, peanuts and fresh herbs.",
+    "Bread Omelette":
+      "Fluffy spiced egg omelette served with toasted bread.",
+    "Upma":
+      "Traditional roasted semolina cooked with vegetables and mild spices.",
+    "Idli":
+      "Soft and fluffy steamed rice cakes served fresh.",
+    "Vada":
+      "Crispy deep-fried savory lentil donuts, golden and flavorful.",
+    "Plain Dosa":
+      "Classic crispy golden rice and lentil crepe.",
+    "Butter Plain Dosa":
+      "Crisp dosa topped generously with fresh butter.",
+    "Butter Masala Dosa":
+      "Crispy butter dosa filled with flavorful spiced potato masala.",
+
     "Veg Sandwich":
       "Fresh veggies, creamy spread and soft toasted bread.",
     "Corn & Cheese Sandwich":
@@ -284,6 +323,23 @@ function getDescription(item) {
       "Tender chicken tossed with crunchy vegetables in spicy chilly sauce.",
     "Chicken 65":
       "Crispy, spicy and flavorful chicken bites served hot and fresh.",
+
+    "Paneer Butter Masala":
+      "Soft paneer cubes cooked in a rich tomato-butter gravy.",
+    "Kadhai Paneer":
+      "Paneer cooked with bell peppers, onions and aromatic spices.",
+    "Paneer Bhurji":
+      "Scrambled cottage cheese cooked with onions and flavorful spices.",
+    "Egg Bhurji":
+      "Spiced Indian-style scrambled eggs cooked with onions and herbs.",
+    "Mix Veg Curry":
+      "Fresh seasonal vegetables cooked with aromatic Indian spices.",
+    "Rajma Rice Combo":
+      "Homestyle kidney beans curry served with steamed rice.",
+    "Veg Biriyani":
+      "Aromatic basmati rice cooked with garden-fresh vegetables and spices.",
+    "Chicken Biriyani":
+      "Tender chicken and fragrant basmati rice cooked with aromatic spices.",
 
     "Plain Tawa Roti":
       "Freshly cooked soft tawa roti, served hot.",
