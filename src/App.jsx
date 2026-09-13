@@ -536,7 +536,7 @@ function App() {
     });
 
     // WhatsApp message
-    let message = `🍽️ *JONNIE'S KAMPUS KITCHEN*\n\n`;
+    let message = `🍽️ *JONNIES KAMPUS KITCHEN*\n\n`;
 
     message += `*NEW ORDER* 🛒\n`;
     message += `━━━━━━━━━━━━━━━━━━\n\n`;
@@ -591,7 +591,7 @@ function App() {
           <div className="brand-logo">👨‍🍳</div>
 
           <div className="brand-text">
-            <h1>JONNIE'S</h1>
+            <h1>JONNIES</h1>
             <span>KAMPUS KITCHEN</span>
           </div>
         </a>
@@ -638,7 +638,7 @@ function App() {
         <div className="hero-content">
 
           <div className="hero-kicker">
-            🍜 JONNIE'S CAMPUS KITCHEN
+            🍜 JONNIES CAMPUS KITCHEN
           </div>
 
           <h2>
@@ -729,7 +729,7 @@ function App() {
 
             <img
               src={heroImage}
-              alt="Jonnie's Kampus Kitchen food"
+              alt="Jonnies Kampus Kitchen food"
               className="hero-image"
             />
 
@@ -940,7 +940,7 @@ function App() {
             </h2>
 
             <p>
-              Jonnie's Kampus Kitchen brings fresh,
+              Jonnies Kampus Kitchen brings fresh,
               tasty and affordable food right to the
               NIT Srinagar community.
             </p>
@@ -1241,7 +1241,7 @@ function App() {
 
             <div>
               <h2>
-                JONNIE'S
+                JONNIES
               </h2>
 
               <span>
@@ -1299,7 +1299,7 @@ function App() {
         <div className="footer-bottom">
 
           <span>
-            © 2026 Jonnie's Kampus Kitchen
+            © 2026 Jonnies Kampus Kitchen
           </span>
 
           <span>
