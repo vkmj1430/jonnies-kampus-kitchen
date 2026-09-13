@@ -651,6 +651,10 @@ function App() {
             The mess that doesn't mess with the taste.
           </p>
 
+          <p className="hero-tagline">
+            BY THE STUDENTS <span>•</span> FOR THE STUDENTS <span>•</span> WITH YOU ALWAYS
+          </p>
+
           <p className="hero-description">
             Fresh, tasty & affordable food made for the
             <strong> NIT Srinagar campus.</strong>

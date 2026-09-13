@@ -109,3 +109,32 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+.hero-tagline {
+  margin: 18px auto 24px;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #333;
+  text-transform: uppercase;
+  line-height: 1.8;
+}
+
+.hero-tagline span {
+  color: #ed241c;
+  margin: 0 8px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .hero-tagline {
+    max-width: 95%;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    margin: 14px auto 20px;
+  }
+
+  .hero-tagline span {
+    margin: 0 4px;
+  }
+}
