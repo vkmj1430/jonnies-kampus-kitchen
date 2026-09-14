@@ -638,7 +638,7 @@ function App() {
         <div className="hero-content">
 
           <div className="hero-kicker">
-            🍜 JONNIES CAMPUS KITCHEN
+            🍜 JONNIES KAMPUS KITCHEN
           </div>
 
           <h2>
