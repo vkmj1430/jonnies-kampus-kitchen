@@ -2849,13 +2849,13 @@ footer {
 
     text-align: center;
 
-    font-size: 0.62rem;
+    font-size: 0.52rem;
 
-    letter-spacing: 0.08em;
+    letter-spacing: 0.04em;
 
-    line-height: 1.9;
+    line-height: 1.2;
 
-    white-space: normal;
+    white-space: nowrap;
 
     overflow: visible;
   }
